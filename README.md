@@ -1,1 +1,1 @@
-# alice
+使用ssm框架开发的小额金融借贷系统，使用html,css,js编写前段页面，数据库使用MySQL进行开发，后台使用spring+springmvc+mybatis，使用mybatis-generator自动生成dao层，使用quartz做定时器，使用MD5对用户密码进行加密。该系统实现了用户注册，登录，身份认证，信息填写，额度计算，借款，还款，逾期催收，黑名单冻结与认证等功能，以及相应的后台管理系统
