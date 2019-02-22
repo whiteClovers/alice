@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.auto.UsrBankcardMapper">
+  <resultMap id="BaseResultMap" type="com.iwonder.alice.usr.entity.UsrBankcard">
+    <id column="bankcard_id" jdbcType="VARCHAR" property="bankcardId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="bankcard_code" jdbcType="VARCHAR" property="bankcardCode" />
+    <result column="bankcard_number" jdbcType="VARCHAR" property="bankcardNumber" />
+    <result column="bankcard_name" jdbcType="VARCHAR" property="bankcardName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    bankcard_id, user_id, bankcard_code, bankcard_number, bankcard_name
+  </sql>
+  <select id="selectByExample" parameterType="com.iwonder.alice.usr.entity.UsrBankcardExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from usr_bankcard
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usr_bankcard
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from usr_bankcard
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iwonder.alice.usr.entity.UsrBankcardExample">
+    delete from usr_bankcard
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iwonder.alice.usr.entity.UsrBankcard">
+    insert into usr_bankcard (bankcard_id, user_id, bankcard_code, 
+      bankcard_number, bankcard_name)
+    values (#{bankcardId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{bankcardCode,jdbcType=VARCHAR}, 
+      #{bankcardNumber,jdbcType=VARCHAR}, #{bankcardName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iwonder.alice.usr.entity.UsrBankcard">
+    insert into usr_bankcard
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bankcardId != null">
+        bankcard_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="bankcardCode != null">
+        bankcard_code,
+      </if>
+      <if test="bankcardNumber != null">
+        bankcard_number,
+      </if>
+      <if test="bankcardName != null">
+        bankcard_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bankcardId != null">
+        #{bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardCode != null">
+        #{bankcardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardNumber != null">
+        #{bankcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardName != null">
+        #{bankcardName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iwonder.alice.usr.entity.UsrBankcardExample" resultType="java.lang.Long">
+    select count(*) from usr_bankcard
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update usr_bankcard
+    <set>
+      <if test="record.bankcardId != null">
+        bankcard_id = #{record.bankcardId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankcardCode != null">
+        bankcard_code = #{record.bankcardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankcardNumber != null">
+        bankcard_number = #{record.bankcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankcardName != null">
+        bankcard_name = #{record.bankcardName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update usr_bankcard
+    set bankcard_id = #{record.bankcardId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      bankcard_code = #{record.bankcardCode,jdbcType=VARCHAR},
+      bankcard_number = #{record.bankcardNumber,jdbcType=VARCHAR},
+      bankcard_name = #{record.bankcardName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iwonder.alice.usr.entity.UsrBankcard">
+    update usr_bankcard
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardCode != null">
+        bankcard_code = #{bankcardCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardNumber != null">
+        bankcard_number = #{bankcardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcardName != null">
+        bankcard_name = #{bankcardName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iwonder.alice.usr.entity.UsrBankcard">
+    update usr_bankcard
+    set user_id = #{userId,jdbcType=VARCHAR},
+      bankcard_code = #{bankcardCode,jdbcType=VARCHAR},
+      bankcard_number = #{bankcardNumber,jdbcType=VARCHAR},
+      bankcard_name = #{bankcardName,jdbcType=VARCHAR}
+    where bankcard_id = #{bankcardId,jdbcType=VARCHAR}
+  </update>
+</mapper>

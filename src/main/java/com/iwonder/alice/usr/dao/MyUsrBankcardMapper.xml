@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.MyUsrBankcardMapper">
+	<resultMap id="myUsrResultMap" type="com.iwonder.alice.usr.view.UsrBankcardView">
+		<id column="bankcard_id" jdbcType="VARCHAR" property="bankcardId" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="bankcard_code" jdbcType="VARCHAR" property="bankcardCode" />
+		<result column="bankcard_number" jdbcType="VARCHAR" property="bankcardNumber" />
+		<result column="bankcard_name" jdbcType="VARCHAR" property="bankcardName" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+	</resultMap>
+
+	<select id="mySelectList" resultMap="myUsrResultMap">
+		select a.*, b.user_name
+		from usr_bankcard a
+		INNER JOIN usr_information b
+		on b.user_id = a.user_id
+		<if test="userId != null">	
+			and a.user_id = #{userId}
+		</if> 
+		<if test="bankcardCode != null">		
+			and a.bankcard_code like CONCAT('%', #{bankcardCode}, '%')
+		</if> 
+		<if test="bankcardNumber != null">	
+			and a.bankcard_number like CONCAT('%', #{bankcardNumber}, '%')
+		</if>
+		<if test="bankcardName != null">	
+			and a.bankcard_name like CONCAT('%', #{bankcardName}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="mySelectUserList" resultMap="myUsrResultMap">
+		select a.*, b.user_name
+		from usr_bankcard a
+		INNER JOIN usr_information b
+		on b.user_id = a.user_id
+		GROUP BY a.user_id
+	</select>
+
+</mapper>

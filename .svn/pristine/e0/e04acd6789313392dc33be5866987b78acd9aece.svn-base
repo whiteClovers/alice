@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.pro.dao.auto.MyProLoanMapper">
+  <resultMap id="myBaseResultMap" type="com.iwonder.alice.pro.entity.ProLoanView">
+    <id column="loan_id" jdbcType="VARCHAR" property="loanId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="loan_code" jdbcType="VARCHAR" property="loanCode" />
+    <result column="repay_method_id" jdbcType="VARCHAR" property="repayMethodId" />
+    <result column="loan_amount" jdbcType="DECIMAL" property="loanAmount" />
+    <result column="actual_amount" jdbcType="DECIMAL" property="actualAmount" />
+    <result column="term" jdbcType="TIMESTAMP" property="term" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="service_charge" jdbcType="DECIMAL" property="serviceCharge" />
+    <result column="management_expense" jdbcType="DECIMAL" property="managementExpense" />
+    <result column="pay_status" jdbcType="VARCHAR" property="payStatus" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_idcard" jdbcType="VARCHAR" property="userIdcard" />
+    <result column="user_credit" jdbcType="VARCHAR" property="userCredit" />
+    <result column="user_regtime" jdbcType="TIMESTAMP" property="userRegtime" />
+    <result column="user_amount" jdbcType="VARCHAR" property="userAmount" />
+    <result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="user_isblacklist" jdbcType="VARCHAR" property="userIsblacklist" />
+  </resultMap>
+  
+ 
+ <select id="mySelectList" resultMap="myBaseResultMap">
+   select * from  pro_loan 
+	INNER JOIN usr_information
+	on pro_loan.user_id=usr_information.user_id
+ </select>
+  
+  
+  
+  
+  
+  
+  
+</mapper>

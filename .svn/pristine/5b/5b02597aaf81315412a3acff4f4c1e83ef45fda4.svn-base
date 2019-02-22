@@ -1,0 +1,8 @@
+jdbc.user=root
+jdbc.password=root
+jdbc.driverClass=com.mysql.jdbc.Driver
+jdbc.jdbcUrl=jdbc:mysql://SKY-20180718PHA:3306/alice?characterEncoding=utf-8
+jdbc.dialect=org.hibernate.dialect.MySQLDialect
+
+jdbc.initPoolSize=10
+jdbc.maxPoolSize=10

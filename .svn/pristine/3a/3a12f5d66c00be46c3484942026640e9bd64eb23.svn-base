@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.MyUsrEconomyMapper">
+	<resultMap id="myUsrResultMap" type="com.iwonder.alice.usr.view.UsrEconomyView">
+		<id column="economy_id" jdbcType="VARCHAR" property="economyId" />
+		<result column="economy_code" jdbcType="VARCHAR" property="economyCode" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="economy_work" jdbcType="VARCHAR" property="economyWork" />
+		<result column="economy_salary" jdbcType="VARCHAR" property="economySalary" />
+		<result column="economy_house" jdbcType="VARCHAR" property="economyHouse" />
+		<result column="economy_car" jdbcType="VARCHAR" property="economyCar" />
+		<result column="economy_education" jdbcType="VARCHAR" property="economyEducation" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+	</resultMap>
+
+	<select id="mySelectList" resultMap="myUsrResultMap">
+		select a.*, b.user_name
+		from usr_economy a
+		INNER JOIN usr_information b
+		on b.user_id = a.user_id
+		<if test="userId != null">	
+			and a.user_id = #{userId}
+		</if> 
+		<if test="economyWork != null">		
+			and a.economy_work like CONCAT('%', #{economyWork}, '%')
+		</if> 
+		<if test="economyHouse != null">	
+			and a.economy_house like CONCAT('%', #{economyHouse}, '%')
+		</if>
+		<if test="economyCar != null">	
+			and a.economy_car like CONCAT('%', #{economyCar}, '%')
+		</if>
+		<if test="economyEducation != null">
+			and a.economy_education like CONCAT('%', #{economyEducation}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="mySelectUserList" resultMap="myUsrResultMap">
+		select a.*, b.user_name
+		from usr_economy a
+		INNER JOIN usr_information b
+		on b.user_id = a.user_id
+		GROUP BY a.user_id
+	</select>
+
+</mapper>

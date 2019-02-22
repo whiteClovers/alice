@@ -1,0 +1,146 @@
+package com.iwonder.alice.front.action;
+
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.iwonder.alice.bas.service.BasDataDictionaryService;
+import com.iwonder.alice.bas.view.YxysDataDictionaryView;
+import com.iwonder.alice.framework.util.AliceUtils;
+import com.iwonder.alice.pro.entity.ProLoan;
+import com.iwonder.alice.pro.entity.ProLoanExample;
+import com.iwonder.alice.pro.entity.ProRepayMethod;
+import com.iwonder.alice.pro.entity.ProRepayMethodExample;
+import com.iwonder.alice.pro.entity.ProRepayMethodExample.Criteria;
+import com.iwonder.alice.pro.service.IProLoanService;
+import com.iwonder.alice.pro.service.IProRepayMethodService;
+@Controller
+@RequestMapping("/front/FrontLoanController/")
+public class FrontLoanController {
+	@Autowired
+	IProLoanService proLoanService;
+	@Autowired
+	BasDataDictionaryService basDataDictionaryService;
+	@Autowired
+	IProRepayMethodService ProRepayMethodService;
+	@RequestMapping("page")
+	public String List(HttpServletRequest request,HttpServletResponse response) {
+		
+		HashMap ha = new HashMap<>();
+		ha.put("dataDictionaryCode","period" );
+		List<YxysDataDictionaryView> listPeriod = basDataDictionaryService.mySelectList(ha);
+		request.setAttribute("listPeriod", listPeriod);
+		HashMap ha2 = new HashMap<>();
+		ha2.put("dataDictionaryCode","repay_method" );
+		List<YxysDataDictionaryView> listRepayMethod = basDataDictionaryService.mySelectList(ha2);
+		request.setAttribute("listRepayMethod", listRepayMethod);
+		HashMap ha3 = new HashMap<>();
+		ha3.put("dataDictionaryCode","period_time" );
+		List<YxysDataDictionaryView> listPeriodTime = basDataDictionaryService.mySelectList(ha3);
+		request.setAttribute("listPeriodTime", listPeriodTime);
+		System.out.println("listPeriod"+listPeriod);
+		System.out.println("listRepayMethod"+listRepayMethod);
+		System.out.println("listPeriodTime"+listPeriodTime);
+		return "/front/yxy/loan";
+	}
+	@RequestMapping("save")
+	@ResponseBody
+	public String save(HttpServletRequest request,HttpServletResponse response) {
+		System.out.println("有进入save方法");
+		//得到借款的各种参数并转换进行插入proLoan 之后插入借款表
+		HttpSession session= request.getSession();
+		String  loginUserId = (String)session.getAttribute("loginUserId");//得到登录id 
+		ProLoan proLoan = new ProLoan();
+		String loanAmount1 = request.getParameter("loanAmount");
+		BigDecimal loanAmount = AliceUtils.parseBigDecimal(loanAmount1);
+		String termLabel = request.getParameter("termLabel");
+		String period1 = request.getParameter("period");
+		Integer period = AliceUtils.parseInteger(period1);
+		if(loanAmount==null){
+			return "请输入借款金额";
+		}else if(loanAmount.compareTo(new BigDecimal("100"))==-1){
+			return "借款金额不能少于100";
+		}
+		BigDecimal Quota = new BigDecimal(9000);
+		BigDecimal nowQuota =new BigDecimal("0");
+		ProLoanExample example2 = new ProLoanExample();
+		com.iwonder.alice.pro.entity.ProLoanExample.Criteria createCriteria2 = example2.createCriteria();
+		createCriteria2.andUserIdEqualTo(loginUserId);
+		java.util.List<ProLoan> proLoans = proLoanService.selectByExample(example2);
+		BigDecimal canloadQuota=new BigDecimal("0");
+		for(ProLoan proLoan2:proLoans){
+			nowQuota=nowQuota.add(proLoan2.getLoanAmount());
+			canloadQuota=Quota.subtract(nowQuota);
+			if(canloadQuota.compareTo(loanAmount)==-1){
+				
+				return "您不能再借更多咯";
+			}
+		}
+		
+		System.out.println("========canloadQuota"+canloadQuota);
+		BigDecimal serviceChargeRate = new BigDecimal("0.005");  
+		BigDecimal managementExpenseRate = new BigDecimal("0.005");  
+		BigDecimal serviceCharge = loanAmount.multiply(serviceChargeRate);
+		BigDecimal managementExpense = loanAmount.multiply(managementExpenseRate);
+		BigDecimal actualAmount = loanAmount.subtract(serviceCharge).subtract(managementExpense);
+		//判断为期限是几个月并进行逻辑操作
+	/*	Calendar cal = Calendar.getInstance();
+		if(term1.equals("one")){
+			cal.add(Calendar.MONTH, 1);
+		}else if(term1.equals("three")){
+			cal.add(Calendar.MONTH, 3);
+		}else if(term1.equals("six")){
+			cal.add(Calendar.MONTH, 6);
+		}
+		Date term  = cal.getTime();
+		
+		String dateFormat = AliceUtils.dateFormat(term);*/
+		Date dateNow = new Date();
+		String repayMethod = request.getParameter("repayMethod");
+		ProRepayMethodExample example = new ProRepayMethodExample();
+		Criteria createCriteria = example.createCriteria();
+		createCriteria.andRepayMethodEqualTo(repayMethod);
+		List<ProRepayMethod> selectByExample = ProRepayMethodService.selectByExample(example);
+		ProRepayMethod proRepayMethod = selectByExample.get(0);
+		String repayMethodId = proRepayMethod.getRepayMethodId();
+	
+		proLoan.setUserId(loginUserId);
+		proLoan.setTermLabel(termLabel);
+		proLoan.setPeriod(period);
+	
+		proLoan.setLoanAmount(loanAmount);
+		proLoan.setActualAmount(actualAmount);
+		proLoan.setManagementExpense(managementExpense);
+		proLoan.setServiceCharge(serviceCharge);
+		proLoan.setRepayMethodId(repayMethodId);
+		proLoan.setAuditStatus("in_audit");//设置状态在审核中
+		proLoan.setPayStatus("no_pay");//设置状态未付款
+		proLoan.setReleaseStatus("not_release");//设置状态未放款  拥有 不放款 未放款 放款 三个状态
+		proLoan.setLoanCode(dateNow.getTime()+"");
+		System.out.println("term"+period);
+		System.out.println("repayMethod"+repayMethod);	
+		System.out.println("period"+period);
+		System.out.println("loanAmount"+loanAmount);
+		System.out.println("serviceCharge"+serviceCharge);
+		System.out.println("managementExpense"+managementExpense);
+		System.out.println("actualAmount"+actualAmount);
+		System.out.println("proLoan"+proLoan);
+		proLoanService.insertSelective(proLoan);
+		String result = "借款成功";
+		return result;
+	}
+	
+	
+	
+}

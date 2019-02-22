@@ -1,0 +1,45 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="/ssm01_base/resource/admin/script/jquery.min.js" ></script>
+<title>Insert title here</title>
+<script type="text/javascript">
+function onclick_save(){
+	$.ajax({
+			type:"post" ,
+			/* contentType:'application/x-www-form-urlencoded; charset=UTF-8', */
+			url:'save.do',
+			data:$('#formEdit').serialize(), //{"customerId":document.getElemenetById('customerId').value , }
+			success:function(data){
+				if(data == '操作成功'){
+					window.location.href = 'page.do' ;
+				}else{
+					alert(data) ;	
+				}
+				
+			}
+		});
+}
+</script>
+</head>
+<body>
+
+	<%-- <form action="save.action">
+		<input type="hidden" name="customerId" value="${customer.customerId }"/>
+		编号：<input type="text" name="code" value="${customer.code }" /> <br/>
+		名称：<input type="text" name="name" value="${customer.name }" /> <br/>
+		<input type="submit" value="保存" />
+	</form> --%>
+	<form id='formEdit'>
+		<input type="hidden" name="loanId" id="loanId"  value="${proLoan.loanId }"/>
+		编号：<input type="text" name="loanCode" id="loanCode" value="${proLoan.loanCode }" /> <br/>
+		<%-- 名称：<input type="text" name="userId" id="userId"  value="${proLoan.userId }" /> <br/> --%>
+		<input type="button" value="保存" onclick="onclick_save();" />
+	</form>
+	
+</body>
+</html>

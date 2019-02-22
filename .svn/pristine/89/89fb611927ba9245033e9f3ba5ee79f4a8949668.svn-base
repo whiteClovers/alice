@@ -1,0 +1,117 @@
+package com.iwonder.alice.sys.action;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.iwonder.alice.framework.vo.PageView;
+import com.iwonder.alice.sys.entity.SysRoleMenu;
+import com.iwonder.alice.sys.entity.SysRoleMenuExample;
+import com.iwonder.alice.sys.entity.SysRoleMenuExample.Criteria;
+import com.iwonder.alice.sys.service.ISysRoleMenuService;
+
+@Controller
+@RequestMapping("/sys/admin/roleMenu/")
+public class SysRoleMenuAdminAction {
+
+	@Autowired
+	ISysRoleMenuService iSysRoleMenuService;
+	
+	@RequestMapping("list")
+	public String list(HttpServletRequest request,HttpServletResponse response){
+		
+		return "admin/sys/sysRoleMenu_list";
+	}
+	
+	@RequestMapping("listAjax")
+	@ResponseBody
+	public PageView listAjax(HttpServletRequest request,HttpServletResponse response){
+		
+		PageView pageView = new PageView();
+		
+		String strPageIndex = request.getParameter("pageIndex");
+		String strPageSize = request.getParameter("pageSize");
+		String roleId = request.getParameter("roleId");
+		
+		int pageIndex = 0;
+		int pageSize = 5;
+		
+		if(!StringUtils.isEmpty(strPageSize)){
+			pageIndex = Integer.parseInt(strPageIndex);
+		}
+		
+		if(!StringUtils.isEmpty(strPageSize)){
+			pageSize = Integer.parseInt(strPageSize);
+		}
+		
+		SysRoleMenuExample customerExample = new SysRoleMenuExample();
+		Criteria criteria = customerExample.createCriteria();
+		
+		if(!StringUtils.isEmpty(roleId)){
+			criteria.andRoleIdLike(roleId + "%");
+		}
+		
+		Map mapCondition = new HashMap();
+		mapCondition.put("roleId",roleId);
+		
+		Page<Object> page = PageHelper.startPage(pageIndex, pageSize);
+		List<SysRoleMenu> listRoleMenu = iSysRoleMenuService.selectByExample(customerExample);
+		
+		pageView.setList(listRoleMenu);
+		pageView.setMapCondition(mapCondition);
+		pageView.setPageIndex(pageIndex);
+		pageView.setPageSize(pageSize);
+		pageView.setRecordCount((int)page.getTotal());
+		
+		System.out.println("recordCount:"+pageView.getRecordCount());
+		
+		return pageView;
+	}
+	
+	@RequestMapping("edit")
+	public String edit(HttpServletRequest request,HttpServletResponse response){
+		String roleMenuId = request.getParameter("roleMenuId");
+		SysRoleMenu sysRoleMenu = null;
+		if(!StringUtils.isEmpty(roleMenuId)){
+			sysRoleMenu = iSysRoleMenuService.load(roleMenuId);
+			request.setAttribute("sysRoleMenu", sysRoleMenu);
+		}
+		return "admin/sys/sysRoleMenu_edit";
+	}
+	
+	@RequestMapping("delete")
+	@ResponseBody
+	public String delete(HttpServletRequest request,HttpServletResponse response){
+		System.out.println("进入了delete方法");
+		
+		String roleMenuId = request.getParameter("roleMenuId");
+		iSysRoleMenuService.delete(roleMenuId);
+		
+		return "删除成功";
+	}
+	
+	@RequestMapping("saveAjax")
+	@ResponseBody
+	public String save(SysRoleMenu sysRoleMenu,HttpServletRequest request,HttpServletResponse response){
+		System.out.println("+++++++++++");
+		if(!StringUtils.isEmpty(sysRoleMenu.getRoleMenuId())){
+			iSysRoleMenuService.update(sysRoleMenu);
+			return "修改成功";
+		}else{
+			iSysRoleMenuService.insert(sysRoleMenu);
+			return "新增成功";
+		}
+//		return "redirect:list.do";
+	}
+}

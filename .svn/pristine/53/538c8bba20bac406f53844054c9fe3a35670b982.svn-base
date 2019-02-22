@@ -1,0 +1,10 @@
+package com.iwonder.alice.front.action;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月15日 下午2:25:15
+ * 
+ */
+public class IndexController {
+
+}

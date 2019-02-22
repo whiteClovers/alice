@@ -1,0 +1,39 @@
+package com.iwonder.alice.bas.dao;
+
+import org.apache.ibatis.jdbc.SQL;
+
+import com.iwonder.alice.bas.view.BasDataDictionaryDetailView;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月16日 下午5:06:59
+ * 
+ */
+public class DataDictionaryDetailSQL {
+	public String selectWhitEmployeeSql(final BasDataDictionaryDetailView view) {
+		return new SQL() {
+			{
+				SELECT("b.*, a.data_dictionary_label ");
+				FROM("bas_data_dictionary a JOIN bas_data_dictionary_detail b ON a.data_dictionary_id = b.data_dictionary_id");
+				if (view.getDataDictionaryId() != null) {
+					WHERE("id=#{id}");
+				}
+				if (view.getDataDictionaryLabel() != null) {
+					WHERE("loginname=#{loginname}");
+				}
+				if (view.getDictionaryDetailCode() != null) {
+					WHERE("password=#{password}");
+				}
+				if (view.getDictionaryDetailId() != null) {
+					WHERE("name=#{name}");
+				}
+				if (view.getDictionaryDetailLabel() != null) {
+					WHERE("sex=#{sex}");
+				}
+				if (view.getDictionaryDetailNumber() != null) {
+					WHERE("sex=#{sex}");
+				}
+			}
+		}.toString();
+	}
+}

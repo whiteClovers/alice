@@ -1,0 +1,27 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/view/admin/include/global.java.jsp" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<%@include file="/WEB-INF/view/admin/include/global.css.jsp" %>
+<%@include file="/WEB-INF/view/admin/include/global.js.jsp" %>
+
+<script type="text/javascript" src="${ctxResource }/resource/admin/script/bas/customer.js"></script>
+
+<title>Insert title here</title>
+
+</head>
+<body>
+
+	<form id='formEdit'>
+		<input type="hidden" name="customerId" id="customerId"  value="${customer.customerId }"/>
+		编号：<input type="text" name="code" id="code" value="${customer.code }" /> <br/>
+		名称：<input type="text" name="name" id="name"  value="${customer.name }" /> <br/>
+		
+		<input type="button" value="保存" onclick="onclick_save();" />
+	</form>
+</body>
+</html>

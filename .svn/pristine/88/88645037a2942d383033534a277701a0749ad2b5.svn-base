@@ -1,0 +1,154 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"   %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript" src="/Alice/resource/admin/script/jquery.min.js" ></script>
+
+ <script type="text/javascript" src="/Alice/resource/admin/third/jquery/jquery.min.js"></script>
+ <script type="text/javascript" src="/Alice/resource/admin/third/easyui/jquery.easyui.min.js"></script> 
+<script type="text/javascript" src="/Alice/resource/admin/third/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/Alice/resource/admin/third/jquery/jquery.serializejson.js"></script>
+<script type="text/javascript" src="/Alice/resource/admin/js/common/common.js"></script>
+
+ <link rel="stylesheet" type="text/css" href="/Alice/resource/admin/third/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/Alice/resource/admin/third/easyui/themes/icon.css"> 
+
+
+<script type="text/javascript">
+
+	
+	function onclick_query(){
+		//var queryParams = $('#formCustomer').serialize() ;
+		$('#dataGridLoan').datagrid({
+			/* queryParams:{
+				"name":$('#name').val()
+			} */
+			queryParams:$('#formQuery').serializeJSON()
+		});
+	}
+
+ function formatOperateColumn(value, row) {
+		return '<a href="javascript:void(0);" class="icon-edit" style="display:inline-block;width:40px;"  onclick="editRow(\'' + row.loanId + '\')">&nbsp;</a>' +
+			'<a href="javascript:void(0);" class="icon-remove" style="display:inline-block;width:40px;"  onclick="deleteOne(\'' + row.loanId + '\')">&nbsp;</a>'
+			;
+	}
+ 
+ function onclick_deleteRows(){
+	 var rows = $("#dataGridLoan").datagrid('getSelections');//获取选中行的所有数据
+	 var ids = new Array();//构造id的数组
+	 for (var i = 0; i < rows.length; i++) {
+         ids.push(rows[i].loanId);
+     }
+	 //alert(ids) ;
+	 $.ajax({
+		 type:'post' ,
+		 url:'deleteRowsAj.do' ,
+		 async:true,
+		 data:{"ids":ids},//提交 id数组
+		 success:function(data){
+			 if(data == '' || data == null){
+			 	onclick_query() ;
+			 }else{
+				 alert(data);
+			 }
+		 }
+		 
+	 });
+	 
+}
+ 
+ function editRow(id) {
+		
+		window.location.href='edit.do?loanId=' + id ;
+	}
+ 
+	
+	function deleteOne(id) {
+		
+		$.messager.confirm('Confirm','Are you sure you want to delete record?',function(r){
+		    if (r){
+		    	$.ajax({
+					async:true, //是否异步
+					type : "post",
+					/* url : 'delete.action?customerId=' + id , */
+					url:'delete.do',		
+					data:{
+						"loanId":id,
+						//"pageIndex":pageIndex//,
+						//"strPageIndex":$('#')
+						
+					},
+					success : function(data) {
+						if(data == '删除成功'  ){//成功
+							$.messager.alert('提示','删除成功');
+							onclick_query() ;
+						}else{//失败
+							alert(data.message);
+							
+						}
+						
+					}
+
+				});
+		    }
+		});
+	}
+	
+		
+</script>
+
+
+</head>
+<body>
+
+ <form id="formQuery">
+name:<input type="text" name="name" id="name" />
+<input type="button" value="查询" onclick="onclick_query();"/>
+</form> 
+ <a href="edit.do">新增</a>
+<a type="button" onclick="onclick_deleteRows();" href="javascript:void(0);">删除</a>
+<br/>
+ <table id='dataGridLoan' class="easyui-datagrid" title="客户管理" style="width:1150px;height:250px"
+			data-options="rownumbers:true,
+			singleSelect:false,collapsible:true,url:'pageAjax.do',method:'post',
+			pagination:true">
+		<thead>
+		
+			<tr>
+	
+
+			
+				<th data-options="field:'ck',checkbox:true"></th>
+				 <th data-options="field:'operate_column',width:160,align:'center',formatter:formatOperateColumn">操作</th> 
+				<th data-options="field:'loanId',width:80">loanId</th>
+				<th data-options="field:'userName',width:100,sortable:true">userId</th>
+				<th data-options="field:'loanCode',width:80,align:'right',sortable:true">loanCode</th>
+				<th data-options="field:'repayMethodId',width:80,align:'right',sortable:true">repayMethodId</th>
+				<th data-options="field:'loanAmount',width:80,align:'right',sortable:true">loanAmount</th>
+				<th data-options="field:'actualAmount',width:80,align:'right',sortable:true">actualAmount</th>
+				<th data-options="field:'term',width:120,align:'right',sortable:true,formatter:formatDateTime">term</th>
+				<th data-options="field:'auditStatus',width:80,align:'right',sortable:true">auditStatus</th>
+				<th data-options="field:'serviceCharge',width:80,align:'right',sortable:true">serviceCharge</th>
+				<th data-options="field:'managementExpense',width:80,align:'right',sortable:true">managementExpense</th>
+				<th data-options="field:'payStatus',width:80,align:'right',sortable:true">payStatus</th>
+				
+
+			</tr>
+		</thead>
+	</table>
+ <c:forEach items="${mySelectList}" var="my">
+ ${my.userName}
+  </c:forEach>
+ 
+
+
+
+</body>
+</html>

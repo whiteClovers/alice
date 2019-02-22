@@ -1,0 +1,155 @@
+package com.iwonder.alice.bas.action;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.iwonder.alice.bas.entity.BasAvoidRepeat;
+import com.iwonder.alice.bas.entity.BasAvoidRepeatExample;
+import com.iwonder.alice.bas.entity.BasAvoidRepeatExample.Criteria;
+import com.iwonder.alice.bas.service.BasAvoidRepeatService;
+import com.iwonder.alice.framework.vo.PageView;
+import com.iwonder.alice.framework.vo.PageViewEasyUIWrapper;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月14日 下午3:14:21
+ * 
+ */
+@Controller
+@RequestMapping("/admin/bas/avoidrepeat/")
+public class BasAvoidRepeatController {
+	@Autowired
+	BasAvoidRepeatService avoidRepeatService;
+
+	@RequestMapping("page")
+	public String toList(HttpServletRequest request) {
+		// List<BasAvoidRepeat> avoidRepeatlist = avoidRepeatService.list();
+		// request.setAttribute("avoidRepeatlist", avoidRepeatlist);
+		return "/admin/bas/avoidrepeat/avoidrepeat_list";
+	}
+
+	@RequestMapping("pageAjax")
+	@ResponseBody
+	public PageViewEasyUIWrapper pageAj(HttpServletRequest request, HttpServletResponse response) {
+		PageView pageView = new PageView();
+		String sort = request.getParameter("sort");
+		String order = request.getParameter("order");
+		String strPage = request.getParameter("page");
+		String strRows = request.getParameter("rows");
+		// String strPageIndex = request.getParameter("pageIndex") ;
+		// String strPageSize = request.getParameter("pageSize") ;
+
+		// 加搜索查询条件--------------start
+		String avoidCode = request.getParameter("avoidCode");
+		String repeatLoanStatus = request.getParameter("repeatLoanStatus");
+		String userIdcard = request.getParameter("userIdcard");
+		// 加搜索查询条件--------------end
+
+		int pageIndex = 0;
+		int pageSize = 5;
+		if (!StringUtils.isEmpty(strPage)) {
+			pageIndex = Integer.parseInt(strPage) - 1;
+		}
+		if (!StringUtils.isEmpty(strRows)) {
+			pageSize = Integer.parseInt(strRows);
+		}
+		BasAvoidRepeatExample avoidRepeatExample = new BasAvoidRepeatExample();
+		if (!StringUtils.isEmpty(sort)) {
+			avoidRepeatExample.setOrderByClause(sort + " " + order);
+		}
+		Criteria criteria = avoidRepeatExample.createCriteria();
+
+		// 加搜索查询条件--------------start
+		if (!StringUtils.isEmpty(avoidCode)) {
+			criteria.andAvoidCodeLike(avoidCode + "%");
+		}
+		if (!StringUtils.isEmpty(repeatLoanStatus)) {
+			criteria.andRepeatLoanStatusLike(repeatLoanStatus + "%");
+		}
+		if (!StringUtils.isEmpty(userIdcard)) {
+			criteria.andUserIdcardLike(userIdcard + "%");
+		}
+		// 加搜索查询条件--------------end
+
+		Page<Object> page = PageHelper.startPage(pageIndex + 1, pageSize);
+		List<BasAvoidRepeat> listCustomer = avoidRepeatService.selectByExample(avoidRepeatExample);
+
+		pageView.setPageIndex(pageIndex);
+		pageView.setPageSize(pageSize);
+
+		pageView.setList(listCustomer);
+		pageView.setRecordCount((int) page.getTotal());
+
+		return new PageViewEasyUIWrapper(pageView);
+	}
+
+	@RequestMapping("edit")
+	public String edit(HttpServletRequest request, HttpServletResponse response) {
+		String avoidRepeatId = request.getParameter("avoidRepeatId");
+		BasAvoidRepeat avoidRepeat = null;
+		if (!StringUtils.isEmpty(avoidRepeatId)) {
+			avoidRepeat = avoidRepeatService.load(avoidRepeatId);
+			request.setAttribute("avoidRepeat", avoidRepeat);
+		} else {
+
+		}
+		request.setAttribute("avoidRepeat", avoidRepeat);
+
+		return "/admin/bas/avoidrepeat/avoidrepeat_edit";
+	}
+
+	@RequestMapping("deleteAj")
+	@ResponseBody
+	public String deleteAj(HttpServletRequest request, HttpServletResponse response) {
+		String result = null;
+		try {
+			String avoidRepeatId = request.getParameter("avoidRepeatId");
+			avoidRepeatService.delete(avoidRepeatId);
+		} catch (Exception ex) {
+			result = "删除失败";
+		}
+		return result;
+	}
+
+	@RequestMapping("deleteRowsAj")
+	@ResponseBody
+	public String deleteRowsAj(@RequestParam("ids[]") String[] ids, HttpServletRequest request,
+			HttpServletResponse response) {
+		String result = null;
+		try {
+			avoidRepeatService.deleteRows(ids);
+		} catch (Exception ex) {
+			result = "删除失败";
+		}
+		return result;
+	}
+
+	@RequestMapping("saveAj")
+	@ResponseBody
+	public String saveAj(BasAvoidRepeat avoidRepeat, HttpServletRequest request, HttpServletResponse response) {
+		String result = null;
+		try {
+			if (!StringUtils.isEmpty(avoidRepeat.getAvoidRepeatId())) {
+				avoidRepeatService.update(avoidRepeat);
+			} else {
+				avoidRepeatService.insert(avoidRepeat);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result = "保存失败";
+		}
+		return result;
+	}
+
+}

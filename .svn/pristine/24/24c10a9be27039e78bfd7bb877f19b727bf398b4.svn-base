@@ -1,0 +1,27 @@
+package com.iwonder.alice.framework.util;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
+import com.iwonder.alice.framework.MD5.MD5Util;
+import com.iwonder.alice.usr.entity.UsrInformation;
+import com.iwonder.alice.usr.entity.UsrInformationExample;
+import com.iwonder.alice.usr.entity.UsrInformationExample.Criteria;
+import com.iwonder.alice.usr.service.IUsrInformationService;
+import com.mysql.fabric.xmlrpc.base.Data;
+
+public class AliceUtils {
+	
+	public static  long  differSecond(Date a  ,Date b){
+		long between = a.getTime()-b.getTime();
+		long day = between / (24 * 60 * 60 * 1000);
+		long hour = (between / (60 * 60 * 1000) - day * 24);
+		long min = ((between / (60 * 1000)) - day * 24 * 60 - hour * 60);
+		long s = (between / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+		return s;
+	}
+	
+}

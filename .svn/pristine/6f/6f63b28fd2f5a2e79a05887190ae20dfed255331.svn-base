@@ -1,0 +1,30 @@
+package com.iwonder.alice.constant;
+
+/**
+ * @author mirror
+ * 
+ */
+public enum webConstant {
+	
+	AUDIT_STATUS("审核状态", "audit_status"), 
+	AUDIT_STATUS_UNDER_AUDIT("审核中", "audit_status_under_audit"), 
+	AUDIT_STATUS_REJECT("审核失败", "audit_status_reject"), 
+	AUDIT_STATUS_SUCCESS("审核通过", "audit_status_success"),
+
+	USER_STATUS("用户状态", "user_isblacklist"), 
+	USER_STATUS_ISBLACKLIST("用户黑名单", "user_status_isblacklist"), 
+	USER_STATUS_NOTBLACKLIST("用户不是黑名单", "user_status_notblacklist"),
+
+	PAY_STATUS("还款状态", "pay_status"), 
+	PAY_STATUS_ISREPAY("已还款", "repay_status_isrepay"), 
+	PAY_STATUS_NOTREPAY("未还款", "user_status_isblacklist");
+
+	private String label;
+	private String value;
+
+	private webConstant(String label, String value) {
+		this.label= label;
+		this.value= value;
+	}
+
+}

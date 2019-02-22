@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.MyUsrSecurityMapper">
+	<resultMap id="myUsrResultMap" type="com.iwonder.alice.usr.view.UsrSecurityView">
+		<id column="security_id" jdbcType="VARCHAR" property="securityId" />
+		<result column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="security_code" jdbcType="VARCHAR" property="securityCode" />
+		<result column="security_relation" jdbcType="VARCHAR" property="securityRelation" />
+		<result column="security_name" jdbcType="VARCHAR" property="securityName" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+	</resultMap>
+
+	<select id="mySelectList" resultMap="myUsrResultMap">
+		select a.*, b.user_name
+		from usr_security a
+		INNER JOIN usr_information b
+		on b.user_id = a.user_id
+		<if test="userId != null">	
+			and a.user_id = #{userId}
+		</if> 
+		<if test="securityCode != null">		
+			and a.security_code like CONCAT('%', #{securityCode}, '%')
+		</if> 
+		<if test="securityRelation != null">	
+			and a.security_relation like CONCAT('%', #{securityRelation}, '%')
+		</if>
+		<if test="securityName != null">	
+			and a.security_name like CONCAT('%', #{securityName}, '%')
+		</if>
+		
+	</select>
+	
+	<select id="mySelectUserList" resultMap="myUsrResultMap">
+		select a.*, b.user_name
+		from usr_security a
+		INNER JOIN usr_information b
+		on b.user_id = a.user_id
+		GROUP BY a.user_id
+	</select>
+
+</mapper>

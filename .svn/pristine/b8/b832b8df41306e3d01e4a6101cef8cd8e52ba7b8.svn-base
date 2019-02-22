@@ -1,0 +1,22 @@
+package com.iwonder.alice.usr.service;
+
+import java.util.List;
+
+import com.iwonder.alice.usr.entity.UsrInformation;
+import com.iwonder.alice.usr.entity.UsrInformationExample;
+
+public interface UsrInformationService {
+	public List<UsrInformation> list();
+
+	public List<UsrInformation> selectByExample(UsrInformationExample example);
+
+	public UsrInformation load(String usrInformationId);
+
+	public int delete(String usrInformationId);
+
+	public void deleteRows(String[] ids);
+
+	int insert(UsrInformation record);
+
+	int update(UsrInformation record);
+}

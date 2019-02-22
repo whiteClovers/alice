@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.MyUsrInformationMapper">
+	<resultMap id="myUsrResultMap" type="com.iwonder.alice.usr.view.UsrInformationView">
+		<id column="user_id" jdbcType="VARCHAR" property="userId" />
+		<result column="user_code" jdbcType="VARCHAR" property="userCode" />
+		<result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="user_idcard" jdbcType="VARCHAR" property="userIdcard" />
+		<result column="user_credit" jdbcType="VARCHAR" property="userCredit" />
+		<result column="user_regtime" jdbcType="TIMESTAMP" property="userRegtime" />
+		<result column="user_amount" jdbcType="VARCHAR" property="userAmount" />
+		<result column="user_tel" jdbcType="VARCHAR" property="userTel" />
+		<result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+		<result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+		<result column="user_isblacklist" jdbcType="VARCHAR" property="userIsblacklist" />
+		<result column="dictionary_detail_label" jdbcType="VARCHAR" property="dictionaryDetailLabel" />
+	</resultMap>
+
+	<select id="mySelectList" resultMap="myUsrResultMap">
+		select a.*, b.dictionary_detail_label
+		from usr_information a
+		INNER JOIN bas_data_dictionary_detail b
+		on b.dictionary_detail_code = a.user_isblacklist
+		<if test="userCode != null">	
+			and a.user_code like CONCAT('%', #{userCode}, '%')
+		</if> 
+		<if test="userName != null">		
+			and a.user_name like CONCAT('%', #{userName}, '%')
+		</if> 
+		<if test="userIdcard != null">	
+			and a.user_idcard like CONCAT('%', #{userIdcard}, '%')
+		</if>
+		
+		<!-- 时间范围查询 -->
+		<if test="convertBefore != null and convertAfter == null">	
+			and a.user_regtime &gt;= #{convertBefore}
+			ORDER BY a.user_regtime asc
+		</if>
+		<if test="convertBefore == null and convertAfter != null">	
+			and a.user_regtime &lt;= #{convertAfter}
+			ORDER BY a.user_regtime asc
+		</if>
+		<if test="convertBefore != null and convertAfter != null">	
+			and a.user_regtime &gt;= #{convertBefore}
+			and a.user_regtime &lt;= #{convertAfter}
+			ORDER BY a.user_regtime asc
+		</if>
+		
+		<if test="userAddress != null">	
+			and a.user_address like CONCAT('%', #{userAddress}, '%')
+		</if>
+		<if test="userIsblacklist != null">	
+			and a.user_isblacklist = #{userIsblacklist}
+		</if>
+		
+	</select>
+	
+	<select id="mySelectBlackList" resultMap="myUsrResultMap">
+		select a.*, b.dictionary_detail_label
+		from usr_information a
+		INNER JOIN bas_data_dictionary_detail b
+		on b.dictionary_detail_code = a.user_isblacklist
+		where 1=1
+		GROUP BY a.user_isblacklist
+	</select>
+
+</mapper>

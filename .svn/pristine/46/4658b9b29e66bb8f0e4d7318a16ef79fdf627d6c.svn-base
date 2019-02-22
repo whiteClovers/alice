@@ -1,0 +1,29 @@
+clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.form_layout:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.form_layout>li {
+	float: left;
+	list-style: none;
+	width: 320px;
+	margin-bottom: 20px;
+}
+
+.form_layout>li>span {
+	width: 60px;
+	display: inline-block;
+}

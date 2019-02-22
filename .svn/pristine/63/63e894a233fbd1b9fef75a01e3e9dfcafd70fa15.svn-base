@@ -1,0 +1,163 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@include file="/WEB-INF/view/admin/include/global.java.jsp"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>还款计划管理</title>
+
+
+
+ <%@include file="/WEB-INF/view/admin/include/global.css.jsp"%>
+<%@include file="/WEB-INF/view/admin/include/global.js.jsp"%>
+<script type="text/javascript">
+
+	
+	function onclick_query(){
+		//var queryParams = $('#formCustomer').serialize() ;
+		$('#dataGridRepayPlan').datagrid({
+			/* queryParams:{
+				"name":$('#name').val()
+			} */
+			queryParams:$('#formQuery').serializeJSON()
+		});
+	}
+
+ function formatOperateColumn(value, row) {
+		return '<a href="javascript:void(0);" class="icon-edit" style="display:inline-block;width:40px;"  onclick="editRow(\'' + row.repayId + '\')">&nbsp;</a>' +
+			'<a href="javascript:void(0);" class="icon-remove" style="display:inline-block;width:40px;"  onclick="deleteOne(\'' + row.repayId + '\')">&nbsp;</a>'
+			;
+	}
+ 
+ function onclick_deleteRows(){
+	 var rows = $("#dataGridRepayPlan").datagrid('getSelections');//获取选中行的所有数据
+	 var ids = new Array();//构造id的数组
+	 for (var i = 0; i < rows.length; i++) {
+         ids.push(rows[i].repayId);
+     }
+	 //alert(ids) ;
+	 $.ajax({
+		 type:'post' ,
+		 url:'deleteRowsAj.do' ,
+		 async:true,
+		 data:{"ids":ids},//提交 id数组
+		 success:function(data){
+			 if(data == '' || data == null){
+			 	onclick_query() ;
+			 }else{
+				 alert(data);
+			 }
+		 }
+		 
+	 });
+	 
+}
+ 
+ function editRow(id) {
+		
+		window.location.href='edit.do?repayId=' + id ;
+	}
+ 
+	
+	function deleteOne(id) {
+		
+		$.messager.confirm('Confirm','Are you sure you want to delete record?',function(r){
+		    if (r){
+		    	$.ajax({
+					async:true, //是否异步
+					type : "post",
+					/* url : 'delete.action?customerId=' + id , */
+					url:'delete.do',		
+					data:{
+						"repayId":id,
+						//"pageIndex":pageIndex//,
+						//"strPageIndex":$('#')
+						
+					},
+					success : function(data) {
+						if(data == '删除成功'  ){//成功
+							$.messager.alert('提示','删除成功');
+							onclick_query() ;
+						}else{//失败
+							alert(data.message);
+							
+						}
+						
+					}
+
+				});
+		    }
+		});
+	}
+	
+		
+</script>
+</head>
+<body>
+	<div id="toolbar">
+		<form id="formQuery">
+			<div style="padding: 6px;">
+				<span>借款Code</span> <input type="text" name="loanCode" id="loanCode" style="border: 1px solid #ccc"/>	
+				<select id="dictionaryDetailCodeOverStatus" class="easyui-combobox" name="dictionaryDetailCodeOverStatus" style="width:200px;">
+				  		<option value="">查询所有</option>
+				   		<c:forEach items="${listOverStatus}" var="list">
+								<option value="${list.dictionaryDetailCode}">${list.dictionaryDetailLabel}</option>
+						</c:forEach>
+				</select>
+				<select id="dictionaryDetailCodePayEachStatus" class="easyui-combobox" name="dictionaryDetailCodePayEachStatus" style="width:200px;">
+				  		<option value="">查询所有</option>
+				   		<c:forEach items="${listPayEachStatus}" var="list">
+								<option value="${list.dictionaryDetailCode}">${list.dictionaryDetailLabel}</option>
+						</c:forEach>
+				</select>		
+ 			<span>理论还款时间段</span>
+ 			<input class="easyui-datetimebox" name="preTheoryDateTime" data-options="required:true,showSeconds:false" value="" style="width:150px">  
+					<input class="easyui-datetimebox" name="aftTheoryDateTime" data-options="required:true,showSeconds:false" value="" style="width:150px">
+					
+				<a href="#" class="easyui-linkbutton" style="width: 60px" onclick="onclick_query();">查询</a>
+			</div>
+		</form>
+		<div>
+			<a class="easyui-linkbutton" iconCls="icon-add" plain="true"
+				href="edit.do">新增</a> <!-- <a class="easyui-linkbutton"
+				iconCls="icon-edit" plain="true" onclick="editRow()">Edit User</a> -->
+			<a class="easyui-linkbutton" iconCls="icon-remove" plain="true"
+				onclick="onclick_deleteRows();" href="javascript:void(0);">删除</a>
+		</div>
+	</div>
+	<!-- 修改id 和 url  -->
+	<!-- singleSelect:true, 多选-->
+	<table id='dataGridRepayPlan' class="easyui-datagrid"
+		data-options="url:'pageAjax.do' ,rownumbers:true,
+			fit:true,toolbar:'#toolbar',singleSelect:false,collapsible:true,method:'post',pagination:'true',fitColumns:true">
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true"></th>	
+				<th	data-options="field:'operate_column',width:160,align:'center',formatter:formatOperateColumn">操作</th>
+				<th data-options="field:'repayCode',width:100">还款计划code</th>
+				<th data-options="field:'loanCode',width:100">借款code</th> 
+				<th data-options="field:'termNumber',width:80,align:'right'">期号</th>
+				<th data-options="field:'period',width:80,align:'right'">期数</th>
+				<th data-options="field:'theoryRepayDate',width:80,align:'right',sortable:true,formatter:formatDateTime">理论还款时间</th>
+				<th data-options="field:'actualRepayDate',width:80,align:'right',sortable:true,formatter:formatDateTime">实际还款时间</th>
+				<th data-options="field:'interest',width:80,align:'right'">利息</th>
+				<th data-options="field:'monthRate',width:80,align:'right'">利率</th>
+				<th data-options="field:'needPrincipal',width:80,align:'right',sortable:true">需还本金</th>	
+				<th data-options="field:'fine',width:80,align:'right'">罚息</th>
+				<th data-options="field:'penaltyRate',width:80,align:'right'">罚息率</th>
+				<th data-options="field:'overStatusLabel',width:80,align:'right'">逾期状态</th>
+				<th data-options="field:'overDays',width:80,align:'right',sortable:true,formatter:formatDateTime">逾期天数</th>
+				<th data-options="field:'paidPrincipal',width:80,align:'right'">已还本金</th>
+				<th data-options="field:'paidInterest',width:80,align:'right'">已还利息</th>
+				<th data-options="field:'paidFine',width:80,align:'right'">已还罚息</th>
+				<th data-options="field:'payEachStatusLabel',width:80,align:'right'">每期还款状态</th>
+			
+			</tr>
+		</thead>
+	</table>
+
+
+</body>
+</html>

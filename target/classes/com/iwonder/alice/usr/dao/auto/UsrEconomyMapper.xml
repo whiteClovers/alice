@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.auto.UsrEconomyMapper">
+  <resultMap id="BaseResultMap" type="com.iwonder.alice.usr.entity.UsrEconomy">
+    <id column="economy_id" jdbcType="VARCHAR" property="economyId" />
+    <result column="economy_code" jdbcType="VARCHAR" property="economyCode" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="economy_work" jdbcType="VARCHAR" property="economyWork" />
+    <result column="economy_salary" jdbcType="VARCHAR" property="economySalary" />
+    <result column="economy_house" jdbcType="VARCHAR" property="economyHouse" />
+    <result column="economy_car" jdbcType="VARCHAR" property="economyCar" />
+    <result column="economy_education" jdbcType="VARCHAR" property="economyEducation" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    economy_id, economy_code, user_id, economy_work, economy_salary, economy_house, economy_car, 
+    economy_education
+  </sql>
+  <select id="selectByExample" parameterType="com.iwonder.alice.usr.entity.UsrEconomyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from usr_economy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usr_economy
+    where economy_id = #{economyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from usr_economy
+    where economy_id = #{economyId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iwonder.alice.usr.entity.UsrEconomyExample">
+    delete from usr_economy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iwonder.alice.usr.entity.UsrEconomy">
+    insert into usr_economy (economy_id, economy_code, user_id, 
+      economy_work, economy_salary, economy_house, 
+      economy_car, economy_education)
+    values (#{economyId,jdbcType=VARCHAR}, #{economyCode,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{economyWork,jdbcType=VARCHAR}, #{economySalary,jdbcType=VARCHAR}, #{economyHouse,jdbcType=VARCHAR}, 
+      #{economyCar,jdbcType=VARCHAR}, #{economyEducation,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iwonder.alice.usr.entity.UsrEconomy">
+    insert into usr_economy
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="economyId != null">
+        economy_id,
+      </if>
+      <if test="economyCode != null">
+        economy_code,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="economyWork != null">
+        economy_work,
+      </if>
+      <if test="economySalary != null">
+        economy_salary,
+      </if>
+      <if test="economyHouse != null">
+        economy_house,
+      </if>
+      <if test="economyCar != null">
+        economy_car,
+      </if>
+      <if test="economyEducation != null">
+        economy_education,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="economyId != null">
+        #{economyId,jdbcType=VARCHAR},
+      </if>
+      <if test="economyCode != null">
+        #{economyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="economyWork != null">
+        #{economyWork,jdbcType=VARCHAR},
+      </if>
+      <if test="economySalary != null">
+        #{economySalary,jdbcType=VARCHAR},
+      </if>
+      <if test="economyHouse != null">
+        #{economyHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="economyCar != null">
+        #{economyCar,jdbcType=VARCHAR},
+      </if>
+      <if test="economyEducation != null">
+        #{economyEducation,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iwonder.alice.usr.entity.UsrEconomyExample" resultType="java.lang.Long">
+    select count(*) from usr_economy
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update usr_economy
+    <set>
+      <if test="record.economyId != null">
+        economy_id = #{record.economyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyCode != null">
+        economy_code = #{record.economyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyWork != null">
+        economy_work = #{record.economyWork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economySalary != null">
+        economy_salary = #{record.economySalary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyHouse != null">
+        economy_house = #{record.economyHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyCar != null">
+        economy_car = #{record.economyCar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.economyEducation != null">
+        economy_education = #{record.economyEducation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update usr_economy
+    set economy_id = #{record.economyId,jdbcType=VARCHAR},
+      economy_code = #{record.economyCode,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      economy_work = #{record.economyWork,jdbcType=VARCHAR},
+      economy_salary = #{record.economySalary,jdbcType=VARCHAR},
+      economy_house = #{record.economyHouse,jdbcType=VARCHAR},
+      economy_car = #{record.economyCar,jdbcType=VARCHAR},
+      economy_education = #{record.economyEducation,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iwonder.alice.usr.entity.UsrEconomy">
+    update usr_economy
+    <set>
+      <if test="economyCode != null">
+        economy_code = #{economyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="economyWork != null">
+        economy_work = #{economyWork,jdbcType=VARCHAR},
+      </if>
+      <if test="economySalary != null">
+        economy_salary = #{economySalary,jdbcType=VARCHAR},
+      </if>
+      <if test="economyHouse != null">
+        economy_house = #{economyHouse,jdbcType=VARCHAR},
+      </if>
+      <if test="economyCar != null">
+        economy_car = #{economyCar,jdbcType=VARCHAR},
+      </if>
+      <if test="economyEducation != null">
+        economy_education = #{economyEducation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where economy_id = #{economyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iwonder.alice.usr.entity.UsrEconomy">
+    update usr_economy
+    set economy_code = #{economyCode,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      economy_work = #{economyWork,jdbcType=VARCHAR},
+      economy_salary = #{economySalary,jdbcType=VARCHAR},
+      economy_house = #{economyHouse,jdbcType=VARCHAR},
+      economy_car = #{economyCar,jdbcType=VARCHAR},
+      economy_education = #{economyEducation,jdbcType=VARCHAR}
+    where economy_id = #{economyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

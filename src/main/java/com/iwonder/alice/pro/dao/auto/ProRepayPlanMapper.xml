@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.pro.dao.auto.ProRepayPlanMapper">
+  <resultMap id="BaseResultMap" type="com.iwonder.alice.pro.entity.ProRepayPlan">
+    <id column="repay_id" jdbcType="VARCHAR" property="repayId" />
+    <result column="loan_id" jdbcType="VARCHAR" property="loanId" />
+    <result column="repay_code" jdbcType="VARCHAR" property="repayCode" />
+    <result column="term_number" jdbcType="INTEGER" property="termNumber" />
+    <result column="theory_repay_date" jdbcType="TIMESTAMP" property="theoryRepayDate" />
+    <result column="actual_repay_date" jdbcType="TIMESTAMP" property="actualRepayDate" />
+    <result column="need_principal" jdbcType="DECIMAL" property="needPrincipal" />
+    <result column="over_days" jdbcType="INTEGER" property="overDays" />
+    <result column="fine" jdbcType="DECIMAL" property="fine" />
+    <result column="interest" jdbcType="DECIMAL" property="interest" />
+    <result column="over_status" jdbcType="VARCHAR" property="overStatus" />
+    <result column="paid_principal" jdbcType="DECIMAL" property="paidPrincipal" />
+    <result column="paid_interest" jdbcType="DECIMAL" property="paidInterest" />
+    <result column="paid_fine" jdbcType="DECIMAL" property="paidFine" />
+    <result column="pay_each_status" jdbcType="VARCHAR" property="payEachStatus" />
+    <result column="each_start_date" jdbcType="TIMESTAMP" property="eachStartDate" />
+    <result column="now_date" jdbcType="TIMESTAMP" property="nowDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    repay_id, loan_id, repay_code, term_number, theory_repay_date, actual_repay_date, 
+    need_principal, over_days, fine, interest, over_status, paid_principal, paid_interest, 
+    paid_fine, pay_each_status, each_start_date, now_date
+  </sql>
+  <select id="selectByExample" parameterType="com.iwonder.alice.pro.entity.ProRepayPlanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from pro_repay_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pro_repay_plan
+    where repay_id = #{repayId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from pro_repay_plan
+    where repay_id = #{repayId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iwonder.alice.pro.entity.ProRepayPlanExample">
+    delete from pro_repay_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iwonder.alice.pro.entity.ProRepayPlan">
+    insert into pro_repay_plan (repay_id, loan_id, repay_code, 
+      term_number, theory_repay_date, actual_repay_date, 
+      need_principal, over_days, fine, 
+      interest, over_status, paid_principal, 
+      paid_interest, paid_fine, pay_each_status, 
+      each_start_date, now_date)
+    values (#{repayId,jdbcType=VARCHAR}, #{loanId,jdbcType=VARCHAR}, #{repayCode,jdbcType=VARCHAR}, 
+      #{termNumber,jdbcType=INTEGER}, #{theoryRepayDate,jdbcType=TIMESTAMP}, #{actualRepayDate,jdbcType=TIMESTAMP}, 
+      #{needPrincipal,jdbcType=DECIMAL}, #{overDays,jdbcType=INTEGER}, #{fine,jdbcType=DECIMAL}, 
+      #{interest,jdbcType=DECIMAL}, #{overStatus,jdbcType=VARCHAR}, #{paidPrincipal,jdbcType=DECIMAL}, 
+      #{paidInterest,jdbcType=DECIMAL}, #{paidFine,jdbcType=DECIMAL}, #{payEachStatus,jdbcType=VARCHAR}, 
+      #{eachStartDate,jdbcType=TIMESTAMP}, #{nowDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iwonder.alice.pro.entity.ProRepayPlan">
+    insert into pro_repay_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="repayId != null">
+        repay_id,
+      </if>
+      <if test="loanId != null">
+        loan_id,
+      </if>
+      <if test="repayCode != null">
+        repay_code,
+      </if>
+      <if test="termNumber != null">
+        term_number,
+      </if>
+      <if test="theoryRepayDate != null">
+        theory_repay_date,
+      </if>
+      <if test="actualRepayDate != null">
+        actual_repay_date,
+      </if>
+      <if test="needPrincipal != null">
+        need_principal,
+      </if>
+      <if test="overDays != null">
+        over_days,
+      </if>
+      <if test="fine != null">
+        fine,
+      </if>
+      <if test="interest != null">
+        interest,
+      </if>
+      <if test="overStatus != null">
+        over_status,
+      </if>
+      <if test="paidPrincipal != null">
+        paid_principal,
+      </if>
+      <if test="paidInterest != null">
+        paid_interest,
+      </if>
+      <if test="paidFine != null">
+        paid_fine,
+      </if>
+      <if test="payEachStatus != null">
+        pay_each_status,
+      </if>
+      <if test="eachStartDate != null">
+        each_start_date,
+      </if>
+      <if test="nowDate != null">
+        now_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="repayId != null">
+        #{repayId,jdbcType=VARCHAR},
+      </if>
+      <if test="loanId != null">
+        #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="repayCode != null">
+        #{repayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="termNumber != null">
+        #{termNumber,jdbcType=INTEGER},
+      </if>
+      <if test="theoryRepayDate != null">
+        #{theoryRepayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actualRepayDate != null">
+        #{actualRepayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needPrincipal != null">
+        #{needPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="overDays != null">
+        #{overDays,jdbcType=INTEGER},
+      </if>
+      <if test="fine != null">
+        #{fine,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="overStatus != null">
+        #{overStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paidPrincipal != null">
+        #{paidPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterest != null">
+        #{paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidFine != null">
+        #{paidFine,jdbcType=DECIMAL},
+      </if>
+      <if test="payEachStatus != null">
+        #{payEachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="eachStartDate != null">
+        #{eachStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nowDate != null">
+        #{nowDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iwonder.alice.pro.entity.ProRepayPlanExample" resultType="java.lang.Long">
+    select count(*) from pro_repay_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update pro_repay_plan
+    <set>
+      <if test="record.repayId != null">
+        repay_id = #{record.repayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanId != null">
+        loan_id = #{record.loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.repayCode != null">
+        repay_code = #{record.repayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.termNumber != null">
+        term_number = #{record.termNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.theoryRepayDate != null">
+        theory_repay_date = #{record.theoryRepayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.actualRepayDate != null">
+        actual_repay_date = #{record.actualRepayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.needPrincipal != null">
+        need_principal = #{record.needPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overDays != null">
+        over_days = #{record.overDays,jdbcType=INTEGER},
+      </if>
+      <if test="record.fine != null">
+        fine = #{record.fine,jdbcType=DECIMAL},
+      </if>
+      <if test="record.interest != null">
+        interest = #{record.interest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.overStatus != null">
+        over_status = #{record.overStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paidPrincipal != null">
+        paid_principal = #{record.paidPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paidInterest != null">
+        paid_interest = #{record.paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="record.paidFine != null">
+        paid_fine = #{record.paidFine,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payEachStatus != null">
+        pay_each_status = #{record.payEachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eachStartDate != null">
+        each_start_date = #{record.eachStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.nowDate != null">
+        now_date = #{record.nowDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update pro_repay_plan
+    set repay_id = #{record.repayId,jdbcType=VARCHAR},
+      loan_id = #{record.loanId,jdbcType=VARCHAR},
+      repay_code = #{record.repayCode,jdbcType=VARCHAR},
+      term_number = #{record.termNumber,jdbcType=INTEGER},
+      theory_repay_date = #{record.theoryRepayDate,jdbcType=TIMESTAMP},
+      actual_repay_date = #{record.actualRepayDate,jdbcType=TIMESTAMP},
+      need_principal = #{record.needPrincipal,jdbcType=DECIMAL},
+      over_days = #{record.overDays,jdbcType=INTEGER},
+      fine = #{record.fine,jdbcType=DECIMAL},
+      interest = #{record.interest,jdbcType=DECIMAL},
+      over_status = #{record.overStatus,jdbcType=VARCHAR},
+      paid_principal = #{record.paidPrincipal,jdbcType=DECIMAL},
+      paid_interest = #{record.paidInterest,jdbcType=DECIMAL},
+      paid_fine = #{record.paidFine,jdbcType=DECIMAL},
+      pay_each_status = #{record.payEachStatus,jdbcType=VARCHAR},
+      each_start_date = #{record.eachStartDate,jdbcType=TIMESTAMP},
+      now_date = #{record.nowDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iwonder.alice.pro.entity.ProRepayPlan">
+    update pro_repay_plan
+    <set>
+      <if test="loanId != null">
+        loan_id = #{loanId,jdbcType=VARCHAR},
+      </if>
+      <if test="repayCode != null">
+        repay_code = #{repayCode,jdbcType=VARCHAR},
+      </if>
+      <if test="termNumber != null">
+        term_number = #{termNumber,jdbcType=INTEGER},
+      </if>
+      <if test="theoryRepayDate != null">
+        theory_repay_date = #{theoryRepayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actualRepayDate != null">
+        actual_repay_date = #{actualRepayDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="needPrincipal != null">
+        need_principal = #{needPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="overDays != null">
+        over_days = #{overDays,jdbcType=INTEGER},
+      </if>
+      <if test="fine != null">
+        fine = #{fine,jdbcType=DECIMAL},
+      </if>
+      <if test="interest != null">
+        interest = #{interest,jdbcType=DECIMAL},
+      </if>
+      <if test="overStatus != null">
+        over_status = #{overStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paidPrincipal != null">
+        paid_principal = #{paidPrincipal,jdbcType=DECIMAL},
+      </if>
+      <if test="paidInterest != null">
+        paid_interest = #{paidInterest,jdbcType=DECIMAL},
+      </if>
+      <if test="paidFine != null">
+        paid_fine = #{paidFine,jdbcType=DECIMAL},
+      </if>
+      <if test="payEachStatus != null">
+        pay_each_status = #{payEachStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="eachStartDate != null">
+        each_start_date = #{eachStartDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nowDate != null">
+        now_date = #{nowDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where repay_id = #{repayId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iwonder.alice.pro.entity.ProRepayPlan">
+    update pro_repay_plan
+    set loan_id = #{loanId,jdbcType=VARCHAR},
+      repay_code = #{repayCode,jdbcType=VARCHAR},
+      term_number = #{termNumber,jdbcType=INTEGER},
+      theory_repay_date = #{theoryRepayDate,jdbcType=TIMESTAMP},
+      actual_repay_date = #{actualRepayDate,jdbcType=TIMESTAMP},
+      need_principal = #{needPrincipal,jdbcType=DECIMAL},
+      over_days = #{overDays,jdbcType=INTEGER},
+      fine = #{fine,jdbcType=DECIMAL},
+      interest = #{interest,jdbcType=DECIMAL},
+      over_status = #{overStatus,jdbcType=VARCHAR},
+      paid_principal = #{paidPrincipal,jdbcType=DECIMAL},
+      paid_interest = #{paidInterest,jdbcType=DECIMAL},
+      paid_fine = #{paidFine,jdbcType=DECIMAL},
+      pay_each_status = #{payEachStatus,jdbcType=VARCHAR},
+      each_start_date = #{eachStartDate,jdbcType=TIMESTAMP},
+      now_date = #{nowDate,jdbcType=TIMESTAMP}
+    where repay_id = #{repayId,jdbcType=VARCHAR}
+  </update>
+</mapper>

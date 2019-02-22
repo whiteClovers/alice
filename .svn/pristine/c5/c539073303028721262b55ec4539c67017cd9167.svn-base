@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.pro.dao.auto.MyProLoanMapper">
+  <resultMap id="myBaseResultMap" type="com.iwonder.alice.pro.entity.ProLoanView">
+    <id column="loan_id" jdbcType="VARCHAR" property="loanId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="loan_code" jdbcType="VARCHAR" property="loanCode" />
+    <result column="repay_method_id" jdbcType="VARCHAR" property="repayMethodId" />
+    <result column="loan_amount" jdbcType="DECIMAL" property="loanAmount" />
+    <result column="actual_amount" jdbcType="DECIMAL" property="actualAmount" />
+    <result column="term" jdbcType="TIMESTAMP" property="term" />
+    <result column="audit_status" jdbcType="VARCHAR" property="auditStatus" />
+    <result column="service_charge" jdbcType="DECIMAL" property="serviceCharge" />
+    <result column="management_expense" jdbcType="DECIMAL" property="managementExpense" />
+    <result column="pay_status" jdbcType="VARCHAR" property="payStatus" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_idcard" jdbcType="VARCHAR" property="userIdcard" />
+ 	<result column="audit_status_label" jdbcType="VARCHAR" property="auditStatusLabel" />
+ 	<result column="pay_status_label" jdbcType="VARCHAR" property="payStatusLabel" />
+	<result column="repay_method" jdbcType="VARCHAR" property="repayMethod" />
+    <result column="month_rate" jdbcType="DECIMAL" property="monthRate" />
+    <result column="penalty_rate" jdbcType="DECIMAL" property="penaltyRate" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+  </resultMap>
+  
+ 
+ <select id="mySelectList" resultMap="myBaseResultMap">
+ 	select 
+	a.*,
+	b.user_code,b.user_pwd,b.user_idcard,b.user_name,
+	c.dictionary_detail_label as audit_status_label,
+	d.dictionary_detail_label as pay_status_label,
+	e.repay_method,e.month_rate,e.penalty_rate,e.period
+	from  pro_loan  as a
+	INNER JOIN usr_information as b 
+	on a.user_id=b.user_id
+	INNER JOIN bas_data_dictionary_detail as c
+	ON c.dictionary_detail_code=a.audit_status 
+	inner JOIN bas_data_dictionary_detail as d
+	on d.dictionary_detail_code=a.pay_status
+	INNER JOIN pro_repay_method  as e
+	ON	a.repay_method_id = e.repay_method_id 
+	where 1=1
+	<if test="userCode != null">	
+		and user_code = #{userCode}
+	</if> 
+	
+ </select>
+  
+  
+  
+  
+  
+  
+  
+</mapper>

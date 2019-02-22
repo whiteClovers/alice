@@ -1,0 +1,30 @@
+package com.iwonder.alice.bas.dao.auto;
+
+import com.iwonder.alice.bas.entity.BasDataDictonary;
+import com.iwonder.alice.bas.entity.BasDataDictonaryExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface BasDataDictonaryMapper {
+    long countByExample(BasDataDictonaryExample example);
+
+    int deleteByExample(BasDataDictonaryExample example);
+
+    int deleteByPrimaryKey(String dataDictionaryId);
+
+    int insert(BasDataDictonary record);
+
+    int insertSelective(BasDataDictonary record);
+
+    List<BasDataDictonary> selectByExample(BasDataDictonaryExample example);
+
+    BasDataDictonary selectByPrimaryKey(String dataDictionaryId);
+
+    int updateByExampleSelective(@Param("record") BasDataDictonary record, @Param("example") BasDataDictonaryExample example);
+
+    int updateByExample(@Param("record") BasDataDictonary record, @Param("example") BasDataDictonaryExample example);
+
+    int updateByPrimaryKeySelective(BasDataDictonary record);
+
+    int updateByPrimaryKey(BasDataDictonary record);
+}

@@ -1,0 +1,158 @@
+package com.iwonder.alice.pro.entity.view;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+import com.iwonder.alice.pro.entity.ProLoan;
+
+public class ProLoanView extends ProLoan implements Serializable {
+ 
+   private String userCode;
+   private String userPwd;
+   private String userName;
+   private String  userIdcard;
+   private String auditStatusLabel;
+   private String	payStatusLabel;
+   private String repayMethod;
+   private BigDecimal monthRate;
+   private BigDecimal penaltyRate;
+   private Integer period;
+public String getUserCode() {
+	return userCode;
+}
+public void setUserCode(String userCode) {
+	this.userCode = userCode;
+}
+public String getUserPwd() {
+	return userPwd;
+}
+public void setUserPwd(String userPwd) {
+	this.userPwd = userPwd;
+}
+public String getUserName() {
+	return userName;
+}
+public void setUserName(String userName) {
+	this.userName = userName;
+}
+public String getUserIdcard() {
+	return userIdcard;
+}
+public void setUserIdcard(String userIdcard) {
+	this.userIdcard = userIdcard;
+}
+public String getAuditStatusLabel() {
+	return auditStatusLabel;
+}
+public void setAuditStatusLabel(String auditStatusLabel) {
+	this.auditStatusLabel = auditStatusLabel;
+}
+public String getPayStatusLabel() {
+	return payStatusLabel;
+}
+public void setPayStatusLabel(String payStatusLabel) {
+	this.payStatusLabel = payStatusLabel;
+}
+public String getRepayMethod() {
+	return repayMethod;
+}
+public void setRepayMethod(String repayMethod) {
+	this.repayMethod = repayMethod;
+}
+public BigDecimal getMonthRate() {
+	return monthRate;
+}
+public void setMonthRate(BigDecimal monthRate) {
+	this.monthRate = monthRate;
+}
+public BigDecimal getPenaltyRate() {
+	return penaltyRate;
+}
+public void setPenaltyRate(BigDecimal penaltyRate) {
+	this.penaltyRate = penaltyRate;
+}
+public Integer getPeriod() {
+	return period;
+}
+public void setPeriod(Integer period) {
+	this.period = period;
+}
+@Override
+public String toString() {
+	StringBuilder builder = new StringBuilder();
+	builder.append("ProLoanView [userCode=");
+	builder.append(userCode);
+	builder.append(", userPwd=");
+	builder.append(userPwd);
+	builder.append(", userName=");
+	builder.append(userName);
+	builder.append(", userIdcard=");
+	builder.append(userIdcard);
+	builder.append(", auditStatusLabel=");
+	builder.append(auditStatusLabel);
+	builder.append(", payStatusLabel=");
+	builder.append(payStatusLabel);
+	builder.append(", repayMethod=");
+	builder.append(repayMethod);
+	builder.append(", monthRate=");
+	builder.append(monthRate);
+	builder.append(", penaltyRate=");
+	builder.append(penaltyRate);
+	builder.append(", period=");
+	builder.append(period);
+	builder.append(", getUserCode()=");
+	builder.append(getUserCode());
+	builder.append(", getUserPwd()=");
+	builder.append(getUserPwd());
+	builder.append(", getUserName()=");
+	builder.append(getUserName());
+	builder.append(", getUserIdcard()=");
+	builder.append(getUserIdcard());
+	builder.append(", getAuditStatusLabel()=");
+	builder.append(getAuditStatusLabel());
+	builder.append(", getPayStatusLabel()=");
+	builder.append(getPayStatusLabel());
+	builder.append(", getRepayMethod()=");
+	builder.append(getRepayMethod());
+	builder.append(", getMonthRate()=");
+	builder.append(getMonthRate());
+	builder.append(", getPenaltyRate()=");
+	builder.append(getPenaltyRate());
+	builder.append(", getPeriod()=");
+	builder.append(getPeriod());
+	builder.append(", getLoanId()=");
+	builder.append(getLoanId());
+	builder.append(", getUserId()=");
+	builder.append(getUserId());
+	builder.append(", getLoanCode()=");
+	builder.append(getLoanCode());
+	builder.append(", getRepayMethodId()=");
+	builder.append(getRepayMethodId());
+	builder.append(", getLoanAmount()=");
+	builder.append(getLoanAmount());
+	builder.append(", getActualAmount()=");
+	builder.append(getActualAmount());
+	builder.append(", getTerm()=");
+	builder.append(getTerm());
+	builder.append(", getAuditStatus()=");
+	builder.append(getAuditStatus());
+	builder.append(", getServiceCharge()=");
+	builder.append(getServiceCharge());
+	builder.append(", getManagementExpense()=");
+	builder.append(getManagementExpense());
+	builder.append(", getPayStatus()=");
+	builder.append(getPayStatus());
+	builder.append(", toString()=");
+	builder.append(super.toString());
+	builder.append(", getClass()=");
+	builder.append(getClass());
+	builder.append(", hashCode()=");
+	builder.append(hashCode());
+	builder.append("]");
+	return builder.toString();
+}
+    
+  
+    
+}

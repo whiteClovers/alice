@@ -1,0 +1,30 @@
+package com.iwonder.alice.bas.dao.auto;
+
+import com.iwonder.alice.bas.entity.BasAvoidBlack;
+import com.iwonder.alice.bas.entity.BasAvoidBlackExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface BasAvoidBlackMapper {
+    long countByExample(BasAvoidBlackExample example);
+
+    int deleteByExample(BasAvoidBlackExample example);
+
+    int deleteByPrimaryKey(String avoidBlackId);
+
+    int insert(BasAvoidBlack record);
+
+    int insertSelective(BasAvoidBlack record);
+
+    List<BasAvoidBlack> selectByExample(BasAvoidBlackExample example);
+
+    BasAvoidBlack selectByPrimaryKey(String avoidBlackId);
+
+    int updateByExampleSelective(@Param("record") BasAvoidBlack record, @Param("example") BasAvoidBlackExample example);
+
+    int updateByExample(@Param("record") BasAvoidBlack record, @Param("example") BasAvoidBlackExample example);
+
+    int updateByPrimaryKeySelective(BasAvoidBlack record);
+
+    int updateByPrimaryKey(BasAvoidBlack record);
+}

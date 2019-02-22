@@ -1,0 +1,146 @@
+package com.iwonder.alice.pro.entity;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class ProLoanView extends ProLoan implements Serializable {
+	 private String userCode;
+
+	    private String userPwd;
+
+	    private String userName;
+
+	    private String userIdcard;
+
+	    private String userCredit;
+
+	    private Date userRegtime;
+
+	    private String userAmount;
+
+	    private String userTel;
+
+	    private String userEmail;
+
+	    private String userAddress;
+
+	    private String userIsblacklist;
+
+		public String getUserCode() {
+			return userCode;
+		}
+
+		public void setUserCode(String userCode) {
+			this.userCode = userCode;
+		}
+
+		public String getUserPwd() {
+			return userPwd;
+		}
+
+		public void setUserPwd(String userPwd) {
+			this.userPwd = userPwd;
+		}
+
+		public String getUserName() {
+			return userName;
+		}
+
+		public void setUserName(String userName) {
+			this.userName = userName;
+		}
+
+		public String getUserIdcard() {
+			return userIdcard;
+		}
+
+		public void setUserIdcard(String userIdcard) {
+			this.userIdcard = userIdcard;
+		}
+
+		public String getUserCredit() {
+			return userCredit;
+		}
+
+		public void setUserCredit(String userCredit) {
+			this.userCredit = userCredit;
+		}
+
+		public Date getUserRegtime() {
+			return userRegtime;
+		}
+
+		public void setUserRegtime(Date userRegtime) {
+			this.userRegtime = userRegtime;
+		}
+
+		public String getUserAmount() {
+			return userAmount;
+		}
+
+		public void setUserAmount(String userAmount) {
+			this.userAmount = userAmount;
+		}
+
+		public String getUserTel() {
+			return userTel;
+		}
+
+		public void setUserTel(String userTel) {
+			this.userTel = userTel;
+		}
+
+		public String getUserEmail() {
+			return userEmail;
+		}
+
+		public void setUserEmail(String userEmail) {
+			this.userEmail = userEmail;
+		}
+
+		public String getUserAddress() {
+			return userAddress;
+		}
+
+		public void setUserAddress(String userAddress) {
+			this.userAddress = userAddress;
+		}
+
+		public String getUserIsblacklist() {
+			return userIsblacklist;
+		}
+
+		public void setUserIsblacklist(String userIsblacklist) {
+			this.userIsblacklist = userIsblacklist;
+		}
+
+		@Override
+		public String toString() {
+			StringBuilder builder = new StringBuilder();
+			builder.append("ProLoanView [userCode=");
+			builder.append(userCode);
+			builder.append(", userPwd=");
+			builder.append(userPwd);
+			builder.append(", userName=");
+			builder.append(userName);
+			builder.append(", userIdcard=");
+			builder.append(userIdcard);
+			builder.append(", userCredit=");
+			builder.append(userCredit);
+			builder.append(", userRegtime=");
+			builder.append(userRegtime);
+			builder.append(", userAmount=");
+			builder.append(userAmount);
+			builder.append(", userTel=");
+			builder.append(userTel);
+			builder.append(", userEmail=");
+			builder.append(userEmail);
+			builder.append(", userAddress=");
+			builder.append(userAddress);
+			builder.append(", userIsblacklist=");
+			builder.append(userIsblacklist);
+			builder.append("]");
+			return builder.toString();
+		}
+}

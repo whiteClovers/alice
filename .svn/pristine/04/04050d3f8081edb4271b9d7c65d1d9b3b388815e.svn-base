@@ -1,0 +1,30 @@
+package com.iwonder.alice.pro.action;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.iwonder.alice.pro.entity.ProLoan;
+import com.iwonder.alice.pro.entity.ProLoanExample;
+import com.iwonder.alice.pro.entity.ProLoanExample.Criteria;
+import com.iwonder.alice.pro.service.IProLoanService;
+
+@Controller
+@RequestMapping("/admin/test/")
+public class Test {
+	@Autowired
+	IProLoanService proLoanService;
+	
+	@RequestMapping("test")
+	public String test(HttpServletRequest request, HttpServletResponse response) {
+		
+		
+		return "admin/index" ;
+	}
+	
+}

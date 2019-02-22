@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.usr.dao.auto.UsrSecurityMapper">
+  <resultMap id="BaseResultMap" type="com.iwonder.alice.usr.entity.UsrSecurity">
+    <id column="security_id" jdbcType="VARCHAR" property="securityId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="security_code" jdbcType="VARCHAR" property="securityCode" />
+    <result column="security_relation" jdbcType="VARCHAR" property="securityRelation" />
+    <result column="security_name" jdbcType="VARCHAR" property="securityName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    security_id, user_id, security_code, security_relation, security_name
+  </sql>
+  <select id="selectByExample" parameterType="com.iwonder.alice.usr.entity.UsrSecurityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from usr_security
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from usr_security
+    where security_id = #{securityId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from usr_security
+    where security_id = #{securityId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iwonder.alice.usr.entity.UsrSecurityExample">
+    delete from usr_security
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iwonder.alice.usr.entity.UsrSecurity">
+    insert into usr_security (security_id, user_id, security_code, 
+      security_relation, security_name)
+    values (#{securityId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{securityCode,jdbcType=VARCHAR}, 
+      #{securityRelation,jdbcType=VARCHAR}, #{securityName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iwonder.alice.usr.entity.UsrSecurity">
+    insert into usr_security
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="securityId != null">
+        security_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="securityCode != null">
+        security_code,
+      </if>
+      <if test="securityRelation != null">
+        security_relation,
+      </if>
+      <if test="securityName != null">
+        security_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="securityId != null">
+        #{securityId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="securityCode != null">
+        #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="securityRelation != null">
+        #{securityRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="securityName != null">
+        #{securityName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iwonder.alice.usr.entity.UsrSecurityExample" resultType="java.lang.Long">
+    select count(*) from usr_security
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update usr_security
+    <set>
+      <if test="record.securityId != null">
+        security_id = #{record.securityId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securityCode != null">
+        security_code = #{record.securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securityRelation != null">
+        security_relation = #{record.securityRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.securityName != null">
+        security_name = #{record.securityName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update usr_security
+    set security_id = #{record.securityId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      security_code = #{record.securityCode,jdbcType=VARCHAR},
+      security_relation = #{record.securityRelation,jdbcType=VARCHAR},
+      security_name = #{record.securityName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iwonder.alice.usr.entity.UsrSecurity">
+    update usr_security
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="securityCode != null">
+        security_code = #{securityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="securityRelation != null">
+        security_relation = #{securityRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="securityName != null">
+        security_name = #{securityName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where security_id = #{securityId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iwonder.alice.usr.entity.UsrSecurity">
+    update usr_security
+    set user_id = #{userId,jdbcType=VARCHAR},
+      security_code = #{securityCode,jdbcType=VARCHAR},
+      security_relation = #{securityRelation,jdbcType=VARCHAR},
+      security_name = #{securityName,jdbcType=VARCHAR}
+    where security_id = #{securityId,jdbcType=VARCHAR}
+  </update>
+</mapper>

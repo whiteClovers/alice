@@ -1,0 +1,29 @@
+import java.util.List;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.iwonder.alice.bas.dao.DataDictionaryDetail;
+import com.iwonder.alice.bas.entity.BasAvoidBlack;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月16日 下午4:25:45
+ * 
+ */
+
+@RunWith(SpringJUnit4ClassRunner.class) // 表示继承了SpringJUnit4ClassRunner类
+@ContextConfiguration(locations = { "classpath:conf/spring-mybatis.xml" })
+public class TestDemo2 {
+	@Autowired
+	DataDictionaryDetail basDao;
+
+	@Test
+	public void test01() {
+		List<BasAvoidBlack> selectByExample = basDao.testdao();
+		System.out.println(selectByExample);
+	}
+}

@@ -1,0 +1,142 @@
+package com.iwonder.alice.bas.action;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.iwonder.alice.bas.entity.BasAvoidBlack;
+import com.iwonder.alice.bas.entity.BasAvoidBlackExample;
+import com.iwonder.alice.bas.entity.BasAvoidBlackExample.Criteria;
+import com.iwonder.alice.bas.service.BasAvoidBlackService;
+import com.iwonder.alice.framework.vo.PageView;
+import com.iwonder.alice.framework.vo.PageViewEasyUIWrapper;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月14日 下午3:14:21
+ * 
+ */
+
+@Controller
+@RequestMapping("/admin/bas/avoidblack/")
+public class BasAvoidBlackController {
+	@Autowired
+	BasAvoidBlackService avoidBlackService;
+
+	@RequestMapping("page")
+	public String toList(HttpServletRequest request) {
+		// List<BasAvoidBlack> avoidBlacklist = avoidBlackService.list();
+		// request.setAttribute("avoidBlacklist", avoidBlacklist);
+		return "/admin/bas/avoidblack/avoidblack_list";
+	}
+
+	@RequestMapping("pageAjax")
+	@ResponseBody
+	public PageViewEasyUIWrapper pageAj(HttpServletRequest request, HttpServletResponse response) {
+		PageView pageView = new PageView();
+		String sort = request.getParameter("sort");
+		String order = request.getParameter("order");
+		String strPage = request.getParameter("page");
+		String strRows = request.getParameter("rows");
+		// String strPageIndex = request.getParameter("pageIndex") ;
+		// String strPageSize = request.getParameter("pageSize") ;
+		// 加查询条件
+		String name = request.getParameter("name");
+		int pageIndex = 0;
+		int pageSize = 5;
+		if (!StringUtils.isEmpty(strPage)) {
+			pageIndex = Integer.parseInt(strPage) - 1;
+		}
+		if (!StringUtils.isEmpty(strRows)) {
+			pageSize = Integer.parseInt(strRows);
+		}
+		BasAvoidBlackExample avoidBlackExample = new BasAvoidBlackExample();
+		if (!StringUtils.isEmpty(sort)) {
+			avoidBlackExample.setOrderByClause(sort + " " + order);
+		}
+		Criteria criteria = avoidBlackExample.createCriteria();
+		// 加查询条件
+		if (!StringUtils.isEmpty(name)) {
+			criteria.andBankNameLike(name + "%");
+		}
+		Page<Object> page = PageHelper.startPage(pageIndex + 1, pageSize);
+		List<BasAvoidBlack> listCustomer = avoidBlackService.selectByExample(avoidBlackExample);
+
+		pageView.setPageIndex(pageIndex);
+		pageView.setPageSize(pageSize);
+
+		pageView.setList(listCustomer);
+		pageView.setRecordCount((int) page.getTotal());
+
+		return new PageViewEasyUIWrapper(pageView);
+	}
+
+	@RequestMapping("edit")
+	public String edit(HttpServletRequest request, HttpServletResponse response) {
+		String avoidBlackId = request.getParameter("avoidBlackId");
+		BasAvoidBlack avoidBlack = null;
+		if (!StringUtils.isEmpty(avoidBlackId)) {
+			avoidBlack = avoidBlackService.load(avoidBlackId);
+			request.setAttribute("avoidBlack", avoidBlack);
+		} else {
+
+		}
+		request.setAttribute("avoidBlack", avoidBlack);
+
+		return "/admin/bas/avoidblack/avoidblack_edit";
+	}
+
+	@RequestMapping("deleteAj")
+	@ResponseBody
+	public String deleteAj(HttpServletRequest request, HttpServletResponse response) {
+		String result = null;
+		try {
+			String avoidBlackId = request.getParameter("avoidBlackId");
+			avoidBlackService.delete(avoidBlackId);
+		} catch (Exception ex) {
+			result = "删除失败";
+		}
+		return result;
+	}
+
+	@RequestMapping("deleteRowsAj")
+	@ResponseBody
+	public String deleteRowsAj(@RequestParam("ids[]") String[] ids, HttpServletRequest request,
+			HttpServletResponse response) {
+		String result = null;
+		try {
+			avoidBlackService.deleteRows(ids);
+		} catch (Exception ex) {
+			result = "删除失败";
+		}
+		return result;
+	}
+
+	@RequestMapping("saveAj")
+	@ResponseBody
+	public String saveAj(BasAvoidBlack avoidBlack, HttpServletRequest request, HttpServletResponse response) {
+		String result = null;
+		try {
+			if (!StringUtils.isEmpty(avoidBlack.getAvoidBlackId())) {
+				avoidBlackService.update(avoidBlack);
+			} else {
+				avoidBlackService.insert(avoidBlack);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result = "保存失败";
+		}
+		return result;
+	}
+
+}

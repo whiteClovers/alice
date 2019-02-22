@@ -1,0 +1,83 @@
+package com.iwonder.alice.bas.service.imp;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.iwonder.alice.bas.dao.YxysMapper;
+import com.iwonder.alice.bas.dao.auto.BasDataDictionaryMapper;
+import com.iwonder.alice.bas.entity.BasDataDictionary;
+import com.iwonder.alice.bas.entity.BasDataDictionaryExample;
+import com.iwonder.alice.bas.service.BasDataDictionaryService;
+import com.iwonder.alice.bas.view.YxysDataDictionaryView;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月14日 下午3:18:53
+ * 
+ */
+@Service
+public class BasDataDictionaryServiceImp implements BasDataDictionaryService {
+	@Autowired
+	BasDataDictionaryMapper dataDictonaryMapper;
+	@Autowired
+	YxysMapper yxysMapper;
+	@Override
+	public List<BasDataDictionary> list() {
+		List<BasDataDictionary> avoidRepeatlist = dataDictonaryMapper.selectByExample(new BasDataDictionaryExample());
+		return avoidRepeatlist;
+	}
+
+	@Override
+	public List<BasDataDictionary> selectByExample(BasDataDictionaryExample example) {
+		return dataDictonaryMapper.selectByExample(example);
+	}
+
+	@Override
+	public BasDataDictionary load(String avoidRepeatId) {
+		return dataDictonaryMapper.selectByPrimaryKey(avoidRepeatId);
+	}
+
+	@Transactional
+	@Override
+	public int delete(String avoidRepeatId) {
+		return dataDictonaryMapper.deleteByPrimaryKey(avoidRepeatId);
+	}
+
+	@Override
+	public int insert(BasDataDictionary record) {
+		record.setDataDictionaryId(UUID.randomUUID().toString().replace("-", ""));
+		return dataDictonaryMapper.insertSelective(record);
+	}
+
+	@Override
+	public int update(BasDataDictionary record) {
+		return dataDictonaryMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Transactional
+	@Override
+	public void deleteRows(String[] ids) {
+		for (String id : ids) {
+			delete(id);
+		}
+		// for(int i = 0;i<ids.length;i++){
+		// if(i==2){
+		// throw new RuntimeException("出错了");
+		// }
+		// delete(ids[i]) ;
+		//
+		// }
+	}
+
+	@Override
+	public List<YxysDataDictionaryView> mySelectList(HashMap hCondition) {
+		// TODO Auto-generated method stub
+		return yxysMapper.mySelectList(hCondition);
+	}
+
+}

@@ -1,0 +1,31 @@
+package com.iwonder.alice.usr.view;
+
+import com.iwonder.alice.usr.entity.UsrInformation;
+
+public class UsrInformationView extends UsrInformation{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String userRegtimeBefore;//查询前置时间
+
+    private String userRegtimeAfter;//查询后置时间
+
+	public String getUserRegtimeBefore() {
+		return userRegtimeBefore;
+	}
+
+	public void setUserRegtimeBefore(String userRegtimeBefore) {
+		this.userRegtimeBefore = userRegtimeBefore;
+	}
+
+	public String getUserRegtimeAfter() {
+		return userRegtimeAfter;
+	}
+
+	public void setUserRegtimeAfter(String userRegtimeAfter) {
+		this.userRegtimeAfter = userRegtimeAfter;
+	}
+
+}

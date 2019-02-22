@@ -1,0 +1,22 @@
+package com.iwonder.alice.usr.service;
+
+import java.util.List;
+
+import com.iwonder.alice.usr.entity.UsrBankcard;
+import com.iwonder.alice.usr.entity.UsrBankcardExample;
+
+public interface UsrBankcardService {
+	public List<UsrBankcard> list();
+
+	public List<UsrBankcard> selectByExample(UsrBankcardExample example);
+
+	public UsrBankcard load(String bankcardIdId);
+
+	public int delete(String bankcardId);
+
+	public void deleteRows(String[] ids);
+
+	int insert(UsrBankcard record);
+
+	int update(UsrBankcard record);
+}

@@ -1,0 +1,61 @@
+package com.iwonder.alice.front.action;
+
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.iwonder.alice.bas.service.BasDataDictionaryService;
+import com.iwonder.alice.bas.view.YxysDataDictionaryView;
+import com.iwonder.alice.pro.entity.ProLoan;
+import com.iwonder.alice.pro.service.IProLoanService;
+@Controller
+@RequestMapping("/front/FrontLoanController/")
+public class FrontLoanController {
+	@Autowired
+	IProLoanService proLoanService;
+	@Autowired
+	BasDataDictionaryService basDataDictionaryService;
+	@RequestMapping("page")
+	public String List(HttpServletRequest request,HttpServletResponse response) {
+		
+		HashMap ha = new HashMap<>();
+		ha.put("dataDictionaryCode","period" );
+		List<YxysDataDictionaryView> listPeriod = basDataDictionaryService.mySelectList(ha);
+		request.setAttribute("listPeriod", listPeriod);
+		HashMap ha2 = new HashMap<>();
+		ha2.put("dataDictionaryCode","repay_method" );
+		List<YxysDataDictionaryView> listRepayMethod = basDataDictionaryService.mySelectList(ha2);
+		request.setAttribute("listRepayMethod", listRepayMethod);
+		HashMap ha3 = new HashMap<>();
+		ha3.put("dataDictionaryCode","period_time" );
+		List<YxysDataDictionaryView> listPeriodTime = basDataDictionaryService.mySelectList(ha3);
+		request.setAttribute("listPeriodTime", listPeriodTime);
+		System.out.println("listPeriod"+listPeriod);
+		System.out.println("listRepayMethod"+listRepayMethod);
+		System.out.println("listPeriodTime"+listPeriodTime);
+		return "/front/yxy/loan";
+	}
+	@RequestMapping("save")
+	@ResponseBody
+	public String save(HttpServletRequest request,HttpServletResponse response) {
+		System.out.println("有进入save方法");
+		ProLoan proLoan = new ProLoan();
+		String loanAmount = request.getParameter("loanAmount");
+		String term1 = request.getParameter("term1");
+		String repayMethod = request.getParameter("repayMethod");
+		System.out.println("term1"+term1);
+		System.out.println("repayMethod"+repayMethod);
+
+		return "";
+	}
+	
+	
+	
+}

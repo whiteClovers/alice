@@ -1,0 +1,41 @@
+package com.iwonder.alice.front.service.imp;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.iwonder.alice.front.service.IFrontApplicationService;
+import com.iwonder.alice.pro.dao.MyProLoanMapper;
+import com.iwonder.alice.pro.dao.auto.ProLoanMapper;
+import com.iwonder.alice.pro.entity.ProLoan;
+import com.iwonder.alice.pro.entity.view.ProLoanView;
+
+@Service
+public class FrontApplicationServiceImp implements IFrontApplicationService {
+
+	@Autowired
+	private MyProLoanMapper myProLoanMapper;
+	
+	@Autowired
+	private ProLoanMapper proLoanMapper;
+	
+	@Override
+	public List<ProLoanView> list(HashMap hCondition){
+		
+		return myProLoanMapper.mySelectList(hCondition);
+	}
+	
+	@Override
+	public int delete(String loanId){
+		proLoanMapper.deleteByPrimaryKey(loanId);
+		return 0;
+	}
+	
+	@Override
+	public int update(ProLoan proLoan){
+		proLoanMapper.updateByPrimaryKeySelective(proLoan);
+		return 0;
+	}
+}

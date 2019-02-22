@@ -1,0 +1,82 @@
+package com.iwonder.alice.pro.service.imp;
+
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.iwonder.alice.pro.entity.ProRepayMethod;
+import com.iwonder.alice.pro.entity.ProRepayMethodExample;
+import com.iwonder.alice.pro.service.IProRepayMethodService;
+@Service
+public class ProRepayMethodServiceImp implements IProRepayMethodService{
+	@Autowired
+	IProRepayMethodService proRepayMethodService;
+	@Override
+	public long countByExample(ProRepayMethodExample example) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteByExample(ProRepayMethodExample example) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteByPrimaryKey(String repayMethodId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insert(ProRepayMethod record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertSelective(ProRepayMethod record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<ProRepayMethod> selectByExample(ProRepayMethodExample example) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProRepayMethod selectByPrimaryKey(String repayMethodId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int updateByExampleSelective(ProRepayMethod record, ProRepayMethodExample example) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByExample(ProRepayMethod record, ProRepayMethodExample example) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(ProRepayMethod record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKey(ProRepayMethod record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

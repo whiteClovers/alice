@@ -1,0 +1,73 @@
+package com.iwonder.alice.bas.service.imp;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.iwonder.alice.bas.dao.auto.BasDataDictonaryMapper;
+import com.iwonder.alice.bas.entity.BasDataDictonary;
+import com.iwonder.alice.bas.entity.BasDataDictonaryExample;
+import com.iwonder.alice.bas.service.BasDataDictionaryService;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月14日 下午3:18:53
+ * 
+ */
+@Service
+public class BasDataDictionaryServiceImp implements BasDataDictionaryService {
+	@Autowired
+	BasDataDictonaryMapper dataDictonaryMapper;
+
+	@Override
+	public List<BasDataDictonary> list() {
+		List<BasDataDictonary> avoidRepeatlist = dataDictonaryMapper.selectByExample(new BasDataDictonaryExample());
+		return avoidRepeatlist;
+	}
+
+	@Override
+	public List<BasDataDictonary> selectByExample(BasDataDictonaryExample example) {
+		return dataDictonaryMapper.selectByExample(example);
+	}
+
+	@Override
+	public BasDataDictonary load(String avoidRepeatId) {
+		return dataDictonaryMapper.selectByPrimaryKey(avoidRepeatId);
+	}
+
+	@Transactional
+	@Override
+	public int delete(String avoidRepeatId) {
+		return dataDictonaryMapper.deleteByPrimaryKey(avoidRepeatId);
+	}
+
+	@Override
+	public int insert(BasDataDictonary record) {
+		record.setDataDictionaryId(UUID.randomUUID().toString().replace("-", ""));
+		return dataDictonaryMapper.insertSelective(record);
+	}
+
+	@Override
+	public int update(BasDataDictonary record) {
+		return dataDictonaryMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Transactional
+	@Override
+	public void deleteRows(String[] ids) {
+		for (String id : ids) {
+			delete(id);
+		}
+		// for(int i = 0;i<ids.length;i++){
+		// if(i==2){
+		// throw new RuntimeException("出错了");
+		// }
+		// delete(ids[i]) ;
+		//
+		// }
+	}
+
+}

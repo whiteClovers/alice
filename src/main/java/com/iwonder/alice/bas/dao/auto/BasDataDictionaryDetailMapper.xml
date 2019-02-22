@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.bas.dao.auto.BasDataDictionaryDetailMapper">
+  <resultMap id="BaseResultMap" type="com.iwonder.alice.bas.entity.BasDataDictionaryDetail">
+    <id column="dictionary_detail_id" jdbcType="VARCHAR" property="dictionaryDetailId" />
+    <result column="data_dictionary_id" jdbcType="VARCHAR" property="dataDictionaryId" />
+    <result column="dictionary_detail_code" jdbcType="VARCHAR" property="dictionaryDetailCode" />
+    <result column="dictionary_detail_label" jdbcType="VARCHAR" property="dictionaryDetailLabel" />
+    <result column="dictionary_detail_number" jdbcType="VARCHAR" property="dictionaryDetailNumber" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    dictionary_detail_id, data_dictionary_id, dictionary_detail_code, dictionary_detail_label, 
+    dictionary_detail_number
+  </sql>
+  <select id="selectByExample" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bas_data_dictionary_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from bas_data_dictionary_detail
+    where dictionary_detail_id = #{dictionaryDetailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from bas_data_dictionary_detail
+    where dictionary_detail_id = #{dictionaryDetailId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetailExample">
+    delete from bas_data_dictionary_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetail">
+    insert into bas_data_dictionary_detail (dictionary_detail_id, data_dictionary_id, 
+      dictionary_detail_code, dictionary_detail_label, 
+      dictionary_detail_number)
+    values (#{dictionaryDetailId,jdbcType=VARCHAR}, #{dataDictionaryId,jdbcType=VARCHAR}, 
+      #{dictionaryDetailCode,jdbcType=VARCHAR}, #{dictionaryDetailLabel,jdbcType=VARCHAR}, 
+      #{dictionaryDetailNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetail">
+    insert into bas_data_dictionary_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dictionaryDetailId != null">
+        dictionary_detail_id,
+      </if>
+      <if test="dataDictionaryId != null">
+        data_dictionary_id,
+      </if>
+      <if test="dictionaryDetailCode != null">
+        dictionary_detail_code,
+      </if>
+      <if test="dictionaryDetailLabel != null">
+        dictionary_detail_label,
+      </if>
+      <if test="dictionaryDetailNumber != null">
+        dictionary_detail_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dictionaryDetailId != null">
+        #{dictionaryDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="dataDictionaryId != null">
+        #{dataDictionaryId,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryDetailCode != null">
+        #{dictionaryDetailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryDetailLabel != null">
+        #{dictionaryDetailLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryDetailNumber != null">
+        #{dictionaryDetailNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetailExample" resultType="java.lang.Long">
+    select count(*) from bas_data_dictionary_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bas_data_dictionary_detail
+    <set>
+      <if test="record.dictionaryDetailId != null">
+        dictionary_detail_id = #{record.dictionaryDetailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dataDictionaryId != null">
+        data_dictionary_id = #{record.dataDictionaryId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictionaryDetailCode != null">
+        dictionary_detail_code = #{record.dictionaryDetailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictionaryDetailLabel != null">
+        dictionary_detail_label = #{record.dictionaryDetailLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dictionaryDetailNumber != null">
+        dictionary_detail_number = #{record.dictionaryDetailNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bas_data_dictionary_detail
+    set dictionary_detail_id = #{record.dictionaryDetailId,jdbcType=VARCHAR},
+      data_dictionary_id = #{record.dataDictionaryId,jdbcType=VARCHAR},
+      dictionary_detail_code = #{record.dictionaryDetailCode,jdbcType=VARCHAR},
+      dictionary_detail_label = #{record.dictionaryDetailLabel,jdbcType=VARCHAR},
+      dictionary_detail_number = #{record.dictionaryDetailNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetail">
+    update bas_data_dictionary_detail
+    <set>
+      <if test="dataDictionaryId != null">
+        data_dictionary_id = #{dataDictionaryId,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryDetailCode != null">
+        dictionary_detail_code = #{dictionaryDetailCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryDetailLabel != null">
+        dictionary_detail_label = #{dictionaryDetailLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="dictionaryDetailNumber != null">
+        dictionary_detail_number = #{dictionaryDetailNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dictionary_detail_id = #{dictionaryDetailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iwonder.alice.bas.entity.BasDataDictionaryDetail">
+    update bas_data_dictionary_detail
+    set data_dictionary_id = #{dataDictionaryId,jdbcType=VARCHAR},
+      dictionary_detail_code = #{dictionaryDetailCode,jdbcType=VARCHAR},
+      dictionary_detail_label = #{dictionaryDetailLabel,jdbcType=VARCHAR},
+      dictionary_detail_number = #{dictionaryDetailNumber,jdbcType=VARCHAR}
+    where dictionary_detail_id = #{dictionaryDetailId,jdbcType=VARCHAR}
+  </update>
+</mapper>

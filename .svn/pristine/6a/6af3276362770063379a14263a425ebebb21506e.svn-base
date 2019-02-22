@@ -1,0 +1,19 @@
+package com.iwonder.alice.bas.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Select;
+
+import com.iwonder.alice.bas.entity.BasAvoidBlack;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月16日 下午4:08:29
+ * 
+ */
+public interface DataDictionaryDetail {
+	@Select(" select * from bas_avoid_black")
+	List<BasAvoidBlack> testdao();
+	
+	
+}

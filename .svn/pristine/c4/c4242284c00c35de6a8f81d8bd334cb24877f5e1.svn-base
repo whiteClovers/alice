@@ -1,0 +1,30 @@
+package com.iwonder.alice.usr.dao.auto;
+
+import com.iwonder.alice.usr.entity.UsrInformation;
+import com.iwonder.alice.usr.entity.UsrInformationExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
+public interface UsrInformationMapper {
+    long countByExample(UsrInformationExample example);
+
+    int deleteByExample(UsrInformationExample example);
+
+    int deleteByPrimaryKey(String userId);
+
+    int insert(UsrInformation record);
+
+    int insertSelective(UsrInformation record);
+
+    List<UsrInformation> selectByExample(UsrInformationExample example);
+
+    UsrInformation selectByPrimaryKey(String userId);
+
+    int updateByExampleSelective(@Param("record") UsrInformation record, @Param("example") UsrInformationExample example);
+
+    int updateByExample(@Param("record") UsrInformation record, @Param("example") UsrInformationExample example);
+
+    int updateByPrimaryKeySelective(UsrInformation record);
+
+    int updateByPrimaryKey(UsrInformation record);
+}

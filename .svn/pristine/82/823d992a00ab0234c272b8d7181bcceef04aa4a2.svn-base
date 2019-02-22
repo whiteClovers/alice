@@ -1,0 +1,11 @@
+package com.iwonder.alice.bas.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import com.iwonder.alice.bas.view.YxysDataDictionaryView;
+import com.iwonder.alice.pro.entity.ProLoanView;
+
+public interface YxysMapper {
+	List<YxysDataDictionaryView> mySelectList(HashMap hCondition);
+}

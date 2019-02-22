@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>投呗注册，享受生活</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <link rel="stylesheet" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/joinUs.css?v=1.2.1"/>
+    <link rel="stylesheet" type="text/css" href="../lib/css/layer.css"/>
+    <script src="../lib/js/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/wapframwork.js" type="text/javascript" charset="utf-8"></script>
+    <script src="//c.dun.163yun.com/js/c.js"></script><!-- 验证码组件js -->
+</head>
+<body class="promoteRegistration " style="background: #fff;overflow-x: hidden">
+<div class="wrap">
+    <section class="container" style="height: 100%;">
+        <header class="header regTitle" style="display: none;">
+            <!-- <a href="javascript:history.go(-1)">
+                 <i class="icon"></i>
+             </a>-->
+        </header>
+        <section class="promoteRegistrationWrap" id="promoteRegistrationWrap">
+            <div>
+                <div class="subheader">
+                    <div class="box">
+                        <div class="t_news">
+                            <ul class="news_li">
+                                <li>简女士：投资10万 每月孩子外教培训费到手</li>
+                                <li>王先生：投资1万 每月的话费车费全免</li>
+                                <li>李先生：投资5万 每月的伙食费油费不用愁</li>
+                                <li>王女士：投资20万 每月的房贷月供全免了</li>
+                            </ul>
+                            <ul class="swap"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="register_content">
+                    <div class="register_part2">
+                        <div class="item">
+                            <input type="number" id="phonenum" placeholder="输入11位手机号"
+                                   oninput="if(value.length>11)value=value.slice(0,11)"/>
+                        </div>
+                        <div class="item clearFix" style="position: relative;">
+                            <input type="password" id="password" placeholder="6-20位数字、字母或符号组合" maxlength="20"/>
+                            <img class="icon_eye" src="../img/bkj.png"/>
+                        </div>
+                        <div class="item clearFix">
+                            <input type="text" id="valicode" placeholder="输入短信验证码" maxlength="6"
+                                   onkeyup="value = value.replace(/[^\d{2}\.]/g, '').replace(/(\.\d{2}).*/g, '$1')"/>
+                            <span class="get_code right" id="get_valicode">获取验证码</span>
+                        </div>
+                        <div style="text-align: center;" id="captcha_div"></div>
+                        <p class="invite"><span>您的邀请人:</span><span id="invitedName"></span></p>
+                        <a href="javascript:;" class="register_btn disabled" style="text-align: center"
+                           id="register_btn">注册</a>
+                        <!--<input type="button" class="register_btn disabled" disabled id="register_btn" value="立即注册">-->
+
+                        <div class="xieyi">
+                            <span class="xieyiname">注册账户表示您同意<a href="service_protol.html">《投呗注册协议》</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="operatingPlanWrap secureWrap">
+                    <ul class="secureList">
+                        <li><a href="javascript:;"><img src="../img/safeiconone.png"><span>广东华兴<br>银行存管</span></a></li>
+                        <li><a href="javascript:;"><img src="../img/safeicontwo.png"><span>中国人民<br>保险承保</span></a></li>
+                        <li><a href="javascript:;"><img src="../img/safeiconthree.png"><span>国家AAA<br>信用评级</span></a>
+                        </li>
+                        <li><a href="javascript:;"><img src="../img/safeiconfour.png"><span>三年<br>放心平台</span></a></li>
+                        <li><a href="javascript:;"><img src="../img/safeiconfive.png"><span>5亿<br>注册资本 </span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+</div>
+<a href="javascript:;" class="downloadApp" id="downloadApp"></a>
+</body>
+<script src="../lib/js/layer.js" type="text/javascript" charset="utf-8"></script>
+<!--头部-->
+<script src="../lib/js/RainbowBridge.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    setTitle(".regTitle", {'title': '投呗注册，享受生活'});
+</script>
+<script src="../js/loading.js"></script>
+<script src="../js/joinUs.js?v=1.2.1" type="text/javascript" charset="utf-8"></script>
+</html>

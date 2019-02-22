@@ -1,0 +1,641 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+    <meta name="Keywords" content="新手标,定投标,智能标">
+    <meta name="description" content="“投呗”最新投资理财产品，预计年化收益率[8.4%~13.8%]，投资期限1-12个月。理财热线：400-001-7899"/>
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/invest.css">
+    <link rel="stylesheet" href="../lib/css/layer.css">
+    <script type="text/javascript" src="../lib/js/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="../js/wapframwork.js"></script>
+    <title>新手标_定投标_智能标_投资理财产品详情_投呗</title>
+    <style>
+        .ci_img {
+            width: 0.4rem;
+            height: 0.4rem;
+            vertical-align: middle;
+            margin-left: 0.1rem;
+        }
+        .pi_split {
+            width: 100%;
+            height: 0.14rem;
+            border-top: 1px solid #cccccc;
+            border-bottom: 1px solid #cccccc;
+        }
+        #pi_login {
+            font-size: 0.24rem;
+            color: #ffffff;
+            position: absolute;
+            top: 0;
+            right: 0.2rem;
+        }
+        #pi_header {
+            height: 4.0rem;
+            width: 100%;
+            background: url("../img/bg.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        #pi_common_header {
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            color: #fff;
+            background: #fa6557;
+            font-size: 0.38rem;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+        #pi_common_header >span {
+            width: 80%;
+            display: inline-block;
+            margin-left: 0.1rem;
+            text-overflow : ellipsis;
+            white-space: nowrap;
+            overflow:hidden;
+        }
+        #pi_common_header .icon {
+            position: absolute;
+            left: 0.3rem;
+            top: 0.26rem;
+            width: 0.24rem;
+            height: 0.46rem;
+            background: url(../img/iconcommon.png);
+            background-size: 2.22rem 0.53rem;
+            vertical-align: middle;
+            background-position: -0.64rem 0;
+        }
+        #pi_header .pi_year_rate {
+            height: 1.4rem;
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            line-height: 0.5rem;
+        }
+        #pi_header .pi_year_rate >p:nth-child(1) {
+            font-size: 0.24rem;
+            /*color: #ffffff;*/
+        }
+        #pi_header .pi_year_rate >p:nth-child(2) >span:nth-child(1) {
+            font-size: 0.55rem;
+            /*color: #ffffff;*/
+        }
+        #pi_header .pi_year_rate >p:nth-child(2) >span:nth-child(2) {
+            font-size: 0.4rem;
+        }
+        #pi_header .pi_money {
+            width: 100%;
+            height: 1.0rem;
+        }
+        #pi_header .pi_money >ul {
+            width: 100%;
+            height: 100%;
+            color: #ffffff;
+            font-size: 0.26rem;
+        }
+        #pi_header .pi_money >ul >li {
+            width: 33%;
+            text-align: center;
+            line-height: 0.5rem;
+        }
+        #pi_header .pi_money >ul >li:nth-child(1) {
+            float: left;
+        }
+        /*#pi_header .pi_money >ul >li:nth-child(3) {
+            float: right;
+        }*/
+        #pi_header .pi_money >ul .lock_time{
+            float: right;
+        }
+        #pi_header .pi_percent {
+            width: 100%;
+            height: 1.1rem;
+        }
+        #pi_header .pi_percent >ul {
+            width: 95%;
+            height: 100%;
+            margin: 0 auto;
+            color: #ffffff;
+        }
+        #pi_header .pi_percent >ul >li {
+            width: 100%;
+        }
+        #pi_header .pi_percent >ul >li:nth-child(2) >p >span:nth-child(1) {
+            float: left;
+            font-size: 0.26rem;
+        }
+        #pi_header .pi_percent >ul >li:nth-child(2) >p >span:nth-child(2) {
+            float: right;
+            font-size: 0.26rem;
+        }
+        #pi_header .pi_percent .pi_percent_line {
+            width: 85%;
+            height: 0.22rem;
+            float: left;
+            position: relative;
+        }
+        #pi_header .pi_percent .pi_percent_line .dot{
+            position: absolute;
+            width: 0.26rem;
+            height: 0.26rem;
+            background-color: #fdd4be;
+            border-radius: 50%;
+            top: -0.06rem;
+            right: -0.2rem;
+        }
+        #pi_header .pi_percent .pi_percent_line_outer {
+            width: 100%;
+            height: 0.12rem;
+            margin-top: 0.08rem;
+            border: 1px solid #fdd4be;
+            -webkit-border-radius: 0.12rem;
+            -moz-border-radius: 0.12rem;
+            border-radius: 0.12rem;
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        #pi_header .pi_percent .pi_percent_line_inner {
+            height: 0.12rem;
+            border: 0;
+            margin-top: 0.08rem;
+            border: 1px solid #fdd4be;
+            -webkit-border-radius: 0.12rem;
+            -moz-border-radius: 0.12rem;
+            border-radius: 0.12rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #fdd4be;
+        }
+        #pi_header .pi_percent .pi_percent_num {
+            width: 10%;
+            height: 0.12rem;
+            margin-left: 0.3rem;
+            float: left;
+            font-size: 0.28rem;
+        }
+        #pi_header .pi_percent .pi_percent_box {
+            height: 0.20rem;
+            width: 100%;
+            position: relative;
+        }
+        #pi_wrap {
+            width: 100%;
+            /* height: 100%;*/
+            overflow: auto;
+            padding-bottom: 2rem;
+        }
+        #pi_wrap .pi_progress {
+            height: 2.0rem;
+            width: 100%;
+            background: #ffffff;
+        }
+        #pi_wrap .pi_progress >ul {
+            width: 95%;
+            height: 2.0rem;
+            margin: 0 auto;
+        }
+        #pi_wrap .pi_progress >ul li {
+            height: 33%;
+            width: 100%;
+            /*border: 1px solid red;*/
+            overflow: hidden;
+        }
+        #pi_wrap .pi_progress .cutdiv {
+            padding-top: 0.1rem;
+            width: 24.5%;
+            float: left;
+            /*line-height: 0.66rem;*/
+        }
+        #pi_wrap .pi_progress .cutdiv1 {
+            width: 24.5%;
+            float: left;
+            line-height: 0.66rem;
+        }
+        #pi_wrap .pi_progress >ul img {
+            width: 0.5rem;
+            height: 0.5rem;
+            z-index: 100;
+        }
+        #pi_wrap .pi_progress >ul #pi_quan1 {
+            position: absolute;
+            left: 0;
+        }
+        #pi_wrap .pi_progress >ul #pi_quan2 {
+            position: absolute;
+            left: 30%;
+        }
+        #pi_wrap .pi_progress >ul #pi_quan3 {
+            position: absolute;
+            left: 62%;
+        }
+        #pi_wrap .pi_progress >ul #pi_quan4 {
+            position: absolute;
+            right: 0;
+        }
+        .pi_progress_line {
+            width: 95%;
+            margin: 0 auto;
+            height: 0.1rem;
+            background: #fee2d7;
+            position: absolute;
+            top: 0.2rem;
+            left: 0.15rem;
+            z-index: 1;
+        }
+        #pi_wrap .pi_list {
+            width: 100%;
+            background: #ffffff;
+        }
+        #pi_wrap .pi_list >table {
+            width: 97.5%;
+            margin-left: 2.5%;
+            border-collapse: collapse;
+        }
+        /*#pi_wrap .pi_list .pi_icon {*/
+        /*display: inline-block;*/
+        /*vertical-align: middle;*/
+        /*margin-right: 0.2rem;*/
+        /*width: 0.5rem;*/
+        /*height: 0.5rem;*/
+        /*background: url("../img1/result.png");*/
+        /*background-size: 0.49rem 2.66rem;*/
+        /*}*/
+        #pi_wrap .pi_list .pi_icon_intro {
+            /*background-position: 0.02rem -2.16rem;*/
+            display: inline-block;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: url("../img/xmjs.png") no-repeat;
+            background-size:100%;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+        }
+        #pi_wrap .pi_list .pi_icon_identi {
+            /*background-position: 0.02rem -1.11rem;*/
+            display: inline-block;
+            width: 0.5rem;
+            height: 0.4rem;
+            background: url("../img/shrz.png") no-repeat;
+            background-size:100%;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+        }
+        #pi_wrap .pi_list .pi_icon_question {
+            /*background-position: 0.02rem 0rem;*/
+            display: inline-block;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: url("../img/cjwt.png") no-repeat;
+            background-size:100%;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+        }
+        #pi_wrap .pi_list .pi_icon_invest {
+            /*background-position: 0.02rem -0.55rem;*/
+            display: inline-block;
+            width: 0.5rem;
+            height: 0.6rem;
+            background: url("../img/tzjl.png") no-repeat;
+            background-size:100%;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+        }
+        #pi_wrap .pi_list img {
+            width: 0.24rem;
+            height: 0.5rem;
+            vertical-align: middle;
+            margin-left: 0.2rem;
+        }
+        #pi_wrap .pi_audit_information {
+            margin-top: 0.02rem;
+            margin-bottom: 0.85rem;
+            width: 100%;
+            background: #f3f3f3;
+        }
+        #pi_wrap .pi_audit_information >table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        #pi_wrap .pi_audit_information >table td {
+            /*border: 1px solid #cccccc;*/
+            height: 0.6rem;
+        }
+        #pi_wrap .pi_invest_money {
+            width: 100%;
+            height:0.84rem;
+            background: #ffffff;
+            /*margin-bottom: 1.0rem;*/
+            border-top: 1px solid #ff9413;
+            border-bottom: 1px solid #ff9413;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+            /*overflow: hidden;*/
+        }
+        #pi_wrap .pi_invest_money >a:nth-child(1) {
+            display: block;
+            height: 100%;
+            width: 11%;
+            float: left;
+        }
+        #pi_wrap .pi_invest_money >a:nth-child(1) >img {
+            height: 100%;
+            width: 100%;
+            vertical-align: middle;
+        }
+        #pi_wrap .pi_invest_money >a:nth-child(2) {
+            display: inline-block;
+            width: 59%;
+            height: 92%;
+            float: left;
+        }
+        #pi_wrap .pi_invest_money >a:nth-child(2) >input {
+            height: 100%;
+            border: none;
+            outline: none;
+            width: 100%;
+            padding-left:4%;;
+            vertical-align: middle;
+            -webkit-appearance: none;
+            background-color:transparent;
+            border-color:transparent;
+
+        }
+        #pi_wrap .pi_invest_money >a:nth-child(3) {
+            display: block;
+            width: 30%;
+            height:100%;
+            font-size: 0.3rem;
+            text-align: center;
+            line-height: 0.84rem;
+            background: #c4c2c2;
+            color: white;
+            float: left;
+        }
+        .tiyan_btn {
+            width: 100%;
+            height: 1.0rem;
+            line-height: 1.0rem;
+            text-align: center;
+            font-size: 0.3rem;
+            color: #FFFFFF;
+            background: #ff9413;
+        }
+        .font_bold {
+            /*font-weight: bold;*/
+            font-size: 0.26rem;
+        }
+        .font1 {
+            font-size: 0.26rem;
+        }
+        .bottominvest_btn{
+            text-align: center;
+            height: 1rem;
+            line-height: 1rem;
+            background: #ff9413;
+            font-size: 0.34rem;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            z-index: 999;
+        }
+        .investinput_wrap{
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.2);
+            display: none;
+            z-index: 101;
+        }
+        .invest_input{
+            background: #fff;
+            border-radius: 0.05rem 0.05rem 0 0;
+            position: fixed;
+            bottom: 1.02rem;
+            width: 100%;
+        }
+        .invest_input .top{
+            padding-top: 0.56rem;
+            font-size: 0.34rem;
+            color: #1a1a1a;
+            font-weight: bold;
+            text-align: center;
+            position: relative;
+        }
+        .invest_input .top .close_btn{
+            position: absolute;
+            left: 0.6rem;
+            color: #797777;
+            font-weight: normal;
+        }
+        .invest_input .center{
+            margin-top: 0.58rem;
+            padding-left: 0.4rem;
+            margin-bottom: 0.44rem;
+        }
+        .invest_input .center .des{
+            font-size: 0.28rem;
+            color: #363636;
+        }
+        input::-webkit-input-placeholder{
+            color: #c0c0c7;
+        }
+        .invest_input .center .item{
+            margin-top: 0.48rem;
+        }
+        .invest_input .center .invest_val{
+            margin-left: 0.4rem;
+            font-size: 0.26rem;
+            border: none;
+            outline: none;
+        }
+        .invest_input .center .earning_val{
+            margin-left: 0.4rem;
+            font-size: 0.26rem;
+            color: #f2552c;
+        }
+        .avai_package{
+            text-align: center;
+            margin-top: 0.38rem;
+        }
+        .avai_package a{
+            text-decoration: underline;
+            color: #fa6357;
+        }
+        .avai_package .icon_hb{
+            width: 0.28rem;
+            vertical-align: -0.06rem;
+        }
+        .lc_input{
+            position: relative;
+        }
+        .lc_input .clear_btn{
+            position: absolute;
+            width: 0.3rem;
+            height: 0.31rem;
+            top: 0;
+            right: 0.58rem;
+        }
+    </style>
+</head>
+<body>
+<div ></div>
+<div style="height: 100%;width: 100%;position: relative">
+    <!--  公共头部 -->
+    <div id="pi_common_header" style="display: none">
+        <a href="javascript:history.go(-1)">
+            <i class="icon"></i>
+        </a>
+        <span></span>
+        <a href="javascript:" id="pi_login"></a>
+    </div>
+    <!--   内容   -->
+    <section id="pi_wrap">
+        <div id="pi_header">
+            <div class="pi_year_rate">
+            </div>
+            <div class="pi_money">
+                <ul class="clearfix">
+                </ul>
+            </div>
+            <div class="pi_percent">
+                <ul>
+                    <li style="margin-top: 0.2rem;">
+                        <div class="pi_percent_box clearfix">
+                            <div class="pi_percent_line">
+                                <div class="pi_percent_line_outer"></div>
+                                <div class="pi_percent_line_inner"><div class="dot"></div></div>
+                            </div>
+                            <div class="pi_percent_num"></div>
+                        </div>
+                    </li>
+                    <li style="margin-top: 0.3rem;" class="pi_total_money">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pi_split"></div>
+        <div class="pi_progress">
+            <ul>
+                <li>
+                    <div class="cutdiv1">截标日期</div>
+                    <div class="cutdiv1" style="text-align: center;text-indent: -0.5rem;">开始计息</div>
+                    <div class="cutdiv1" style="text-align: center;text-indent: 0.5rem;">锁定结束</div>
+                    <div class="cutdiv1" style="text-align: right">提现</div>
+                </li>
+                <li>
+                    <div style="position: relative">
+                        <img id="pi_quan1" src="../img/quan.png" alt=""><img id="pi_quan2" src="../img/quan.png" alt=""><img id="pi_quan3" src="../img/quan.png" alt=""><img id="pi_quan4" src="../img/quan.png" alt="">
+                        <div class="pi_progress_line"></div>
+                    </div>
+                </li>
+                <li class="pi_bo_time">
+                </li>
+            </ul>
+        </div>
+        <div class="pi_split"></div>
+        <div class="pi_list">
+            <table cellspacing="1" cellpadding="10">
+                <!--<tr>-->
+                <!--<td class="bottom_border"><i class="pi_icon pi_icon_intro"></i><span>项目介绍</span></td>-->
+                <!--<td class="bottom_border" style="text-align: right">A级认证保障<img src="../img1/zhankai.png"></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td class="bottom_border"><i class="pi_icon pi_icon_identi"></i><span>审核认证</span></td>-->
+                <!--<td class="bottom_border" style="text-align: right">中国人民保险承保<img src="../img1/zhankai.png"></td>-->
+                <!--</tr>-->
+                <tr onclick="window.location.href ='invest_faq.html'">
+                    <td class="bottom_border"><i class="pi_icon pi_icon_question"></i><span class="font_bold">常见问题</span></td>
+                    <td class="bottom_border" style="text-align: right"><img src="../img/zhankai.png"></td>
+                </tr>
+                <!--<tr>-->
+                <!--<td><i class="pi_icon pi_icon_invest"></i><span>投资记录</span></td>-->
+                <!--<td style="text-align: right">16035人已投<img src="../img1/zhankai.png"></td>-->
+                <!--</tr>-->
+            </table>
+        </div>
+        <div class="avai_package">
+            <img class="icon_hb" src="../img/hb.png" alt="" />
+            <span>您有</span><a class="couponNum" href="coupon.html#tier"></a><span>未使用,立即投呗！</span>
+        </div>
+        <!--<div class="pi_split"></div>-->
+        <!--<div class="pi_audit_information">
+            <table cellpadding="10">-->
+        <!--<tr>-->
+        <!--<td style="border-top: 0" colspan="3" rowspan="1">已审核信息</td>-->
+        <!--&lt;!&ndash;<td></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;<td></td>&ndash;&gt;-->
+        <!--</tr>-->
+        <!--<tr style="background: #f97a52;color: #ffffff">-->
+        <!--<td>审核项</td>-->
+        <!--<td>审核日期</td>-->
+        <!--<td>审核状态</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>营业执照</td>-->
+        <!--<td class="td_time"></td>-->
+        <!--<td>认证通过</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+        <!--<td>开户许可证</td>-->
+        <!--<td class="td_time"></td>-->
+        <!--<td>认证通过</td>-->
+        <!--</tr>-->
+        <!--<tr>
+            <td colspan="3" rowspan="1">温馨提示：投资有风险，请合理投资</td>-->
+        <!--<td></td>-->
+        <!--<td></td>-->
+        <!--</tr>
+    </table>
+</div>-->
+        <!--<div class="pi_invest_money">
+            <a id="jump_calculator_btn" href="javascript:;"><img src="../img1/isq.png" alt=""></a>
+            <a href="javascript:;"><input id="_invest_money" type="text" placeholder="100元起投,请输入金额"></a>
+            <a id="pi_commit_btn" href="javascript:;">立即投资</a>
+        </div>-->
+        <div class="investinput_wrap">
+            <div class="invest_input">
+                <div class="top">
+                    <span class="close_btn">X</span>
+                    <span>输入金额</span>
+                </div>
+                <div class="center">
+                    <div class="lc_input">
+                        <span class="des">理财金额(元)</span><input onkeyup="value=value.replace(/\D/g,'')" id="_invest_money" class="invest_val" type="text" placeholder="100元起投"/>
+                        <img class="clear_btn" src="../img/clear.png" alt="" />
+                    </div>
+                    <div class="item">
+                        <span class="des">预期收益(元)</span><span class="earning_val"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottominvest_btn" id="pi_commit_btn">
+            立即投资
+        </div>
+        <!--<div class="pi_split"></div>-->
+
+    </section>
+    <!-- 底部 -->
+    <!--<section id="sp_footer">-->
+    <!--</section>-->
+</div>
+</body>
+
+<script type="text/javascript" src="../lib/js/jquery.base64.js"></script>
+<script type="text/javascript" src="../js/dateAdd.js"></script>
+<script type="text/javascript" src="../lib/js/layer.js"></script>
+<script src="../lib/js/RainbowBridge.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/biao_detail.js?v=1.2.2"></script>
+</html>

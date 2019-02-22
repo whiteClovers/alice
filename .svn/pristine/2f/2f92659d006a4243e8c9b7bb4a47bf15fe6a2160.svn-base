@@ -1,0 +1,66 @@
+package com.iwonder.alice.usr.service.imp;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.iwonder.alice.usr.dao.auto.UsrInformationMapper;
+import com.iwonder.alice.usr.entity.UsrInformation;
+import com.iwonder.alice.usr.entity.UsrInformationExample;
+import com.iwonder.alice.usr.service.UsrInformationService;
+
+/**
+ * @author mirror
+ * @version 创建时间：2018年11月14日 下午3:18:53
+ * 
+ */
+@Service
+public class UsrInformationServiceImp implements UsrInformationService {
+	@Autowired
+	UsrInformationMapper usrInformationMapper;
+
+	@Override
+	public List<UsrInformation> list() {
+		List<UsrInformation> usrInformation = usrInformationMapper.selectByExample(new UsrInformationExample());
+		return usrInformation;
+	}
+
+	@Override
+	public List<UsrInformation> selectByExample(UsrInformationExample example) {
+		return usrInformationMapper.selectByExample(example);
+	}
+
+	@Override
+	public UsrInformation load(String usrInformationId) {
+		return usrInformationMapper.selectByPrimaryKey(usrInformationId);
+	}
+
+	@Transactional
+	@Override
+	public int delete(String usrInformationId) {
+		return usrInformationMapper.deleteByPrimaryKey(usrInformationId);
+	}
+
+	@Override
+	public int insert(UsrInformation record) {
+		record.setUserId(UUID.randomUUID().toString().replace("-", ""));
+		return usrInformationMapper.insertSelective(record);
+	}
+
+	@Override
+	public int update(UsrInformation record) {
+		return usrInformationMapper.updateByPrimaryKeySelective(record);
+	}
+
+	@Transactional
+	@Override
+	public void deleteRows(String[] ids) {
+		for (String id : ids) {
+			delete(id);
+		}
+	}
+
+}

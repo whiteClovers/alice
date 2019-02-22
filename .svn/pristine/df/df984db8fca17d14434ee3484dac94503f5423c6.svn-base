@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwonder.alice.bas.dao.YxysMapper">
+
+	<resultMap id="myBaseResultMap"
+		type="com.iwonder.alice.bas.view.YxysDataDictionaryView">
+		<id column="data_dictionary_id" jdbcType="VARCHAR" property="dataDictionaryId" />
+		<result column="data_dictionary_code" jdbcType="VARCHAR"
+			property="dataDictionaryCode" />
+		<result column="data_dictionary_label" jdbcType="VARCHAR"
+			property="dataDictionaryLabel" />
+		<result column="dictionary_detail_code" jdbcType="VARCHAR"
+			property="dictionaryDetailCode" />
+		<result column="dictionary_detail_label" jdbcType="VARCHAR"
+			property="dictionaryDetailLabel" />
+	</resultMap>
+
+
+
+	<select id="mySelectList" resultMap="myBaseResultMap">
+		select a.*,b.* from bas_data_dictionary as a
+		INNER JOIN bas_data_dictionary_detail as b
+		on a.data_dictionary_id = b.data_dictionary_id
+		where 1=1
+		<if test="dataDictionaryCode != null">
+			and data_dictionary_code = #{dataDictionaryCode}
+		</if>
+
+	</select>
+
+</mapper>

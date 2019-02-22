@@ -1,0 +1,26 @@
+package com.iwonder.alice.third.schedual;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.iwonder.alice.pro.entity.ProRepayMethodExample;
+import com.iwonder.alice.pro.service.IProRepayMethodService;
+
+@Component("AliceSchedual")
+public class AliceSchedual {
+	@Autowired
+	IProRepayMethodService ProRepayMethodService;
+
+	public AliceSchedual() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void work() {
+
+		System.out.println("job work.date:" + new Date().toString());
+		ProRepayMethodExample example = new ProRepayMethodExample();
+		ProRepayMethodService.selectByExample(example);
+	}
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	
+	<!-- 生成不同的模块时,需设置五处地方 -->
+	<!-- 数据库驱动 -->
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!-- 实体生成序列化 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+		<!-- 添加toString --> 
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />  
+	
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--数据库链接URL，用户名、密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://SKY-20180718PHA:3306/alice?useUnicode=true&amp;characterEncoding=utf-8"
+			userId="root" password="root">
+		</jdbcConnection>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+		<!-- 生成模型的包名和位置 -->
+		<!-- 【TODO  1 :根据模块名改包名】-->
+		<javaModelGenerator targetPackage="com.iwonder.alice.sys.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+		<!-- 生成映射文件的包名和位置 -->
+		<!-- 【TODO  2:根据模块名改包名】 -->
+		<sqlMapGenerator targetPackage="com.iwonder.alice.sys.dao.auto"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		<!-- 生成DAO的包名和位置 -->
+		<!-- 【TODO  3 :根据模块名改包名】-->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.iwonder.alice.sys.dao.auto" targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+		
+		<!-- TODO  4 -->
+		
+		<!-- 要生成哪些表 -->
+		<!-- for table -->
+<!-- 		<table tableName="bas_area" domainObjectName="Area"
+			enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" modelType="flat">
+		</table> -->
+		
+		<table tableName="sys%"
+			enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" modelType="flat">
+			<!-- 注意事项 TODO4,如果Oracle数据库中，日期类型小时分钟表时，需针对date字段加如下配置 -->
+			<!-- <columnOverride column="RECORD_DATE" jdbcType="TIMESTAMP"/>   -->
+		</table>
+		
+
+
+	</context>
+</generatorConfiguration> 

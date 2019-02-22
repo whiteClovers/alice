@@ -1,0 +1,106 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@include file="/WEB-INF/view/admin/include/global.css.jsp" %>
+<%@include file="/WEB-INF/view/admin/include/global.js.jsp" %>
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+	
+	function deleteOne(menuId){
+		$messager.confirm('Confirm','Are you sure want to delete record?',function(r){
+			if(r){
+				$.ajax({
+					url:'delete.do',
+					type:'post',
+					data:{
+						"menuId":menuId,
+					},
+					success:function(data){
+						if(data=="删除成功"){
+							alert('提示',data.message);
+							onclick_query();
+						}else{
+							alert(data.message);
+						}
+					}
+				});
+			}
+		});
+	}
+	
+	function deleteRows(){
+		var rows = $("#dataGridMenu").datagrid('getSelections');//获取选中行的所有数据
+		var ids = new Array();
+		for(var i = 0; i < rows.length; i++){
+			ids.push(rows[i].menuId);
+		}
+		$.ajax({
+			type:'post',
+			url:'deleteRowsAjax.do',
+			data:{
+				"ids":ids
+			},
+			success:function(data){
+				if(data==''|| data==null){
+					onclick_query();
+				}else{
+					alert(data);
+				}
+			}
+		});
+	}
+	
+	
+	function onclick_query(){
+		$('tableMenu').datagrid({
+			queryParams:$('#formQuery').serializeJSON()
+		});
+	} 
+	
+	function formatOperateColumn(value, row){
+		return '<a href="#" class="icon-edit" style="display:inline-block;width:40px;"  onclick="editRow(\'' + row.menuId + '\')">&nbsp;</a>' +
+		'<a href="#" class="icon-remove" style="display:inline-block;width:40px;"  onclick="deleteOne(\'' + row.menuId + '\')">&nbsp;</a>';
+	}
+	
+	function editRow(menuId){
+		window.location.href='edit.action?menuId'+ menuId;
+	}
+</script>
+</head>
+<body>
+		<form id="formQuery">
+			<div style="padding:6px;padding-top: 15px;">
+				<span>menu name:</span>
+				<input id="menuName" style="height:20px;border:1px solid #ccc">
+				<input type="button" value="查询" class="easyui-linkbutton" style="width:60px" onclick="onclick_query();"/>
+			</div>
+			<div>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="insert()">新增</a>
+				<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteRows()">删除</a>
+			</div>
+		</form>
+		<table class="easyui-datagrid" id="tableMenu"  title="客户管理" style="width:1150px;height:250px"
+			data-options="rownumbers:true,
+			singleSelect:false,collapsible:true,url:'listAjax.do',method:'post',
+			pagination:true">
+			<thead>
+				<tr>
+					<th data-options="field:'ck',checkbox:true"></th>
+					<th data-options="field:'operate_column',width:160,align:'center',formatter:formatOperateColumn">操作</th>
+					<th data-options="field:'menuId',width:180,align:'center'">menu ID</th>
+					<th data-options="field:'moduleId',width:200,align:'center'">module ID</th>
+					<th data-options="field:'menuName',width:180,align:'center'">menu name</th>
+					<th data-options="field:'menuUrl',width:80,align:'center'">menu Url</th>
+
+				</tr>
+			</thead>
+		</table>
+</body>
+</html>

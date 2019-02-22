@@ -1,0 +1,58 @@
+package com.iwonder.alice.framework.util;
+
+import java.math.BigDecimal;
+
+public class BigDecimalUtil {
+
+	public static BigDecimal subtract(String x, String... y) {
+
+		BigDecimal result = new BigDecimal(x);
+
+		for (String string : y) {
+
+			result = result.subtract(new BigDecimal(string));
+
+		}
+
+		return result;
+	}
+
+	public static BigDecimal divide(String x, String... y) {
+
+		BigDecimal result = new BigDecimal(x);
+
+		for (String string : y) {
+
+			// 精确到2为小数且四舍五入
+			result = result.divide(new BigDecimal(string), 2, BigDecimal.ROUND_HALF_EVEN);
+
+		}
+
+		return result;
+	}
+
+	public static BigDecimal multi(String... x) {
+
+		BigDecimal result = new BigDecimal("1");
+		for (String string : x) {
+
+			result = result.multiply(new BigDecimal(string));
+
+		}
+
+		return result;
+	}
+
+	public static BigDecimal add(String... x) {
+
+		BigDecimal result = new BigDecimal("0");
+		for (String string : x) {
+
+			result = result.add(new BigDecimal(string));
+
+		}
+
+		return result;
+	}
+
+}

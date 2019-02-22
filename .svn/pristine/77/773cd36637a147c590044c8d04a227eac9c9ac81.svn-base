@@ -1,0 +1,73 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@include file="/WEB-INF/view/admin/include/global.css.jsp" %>
+<%@include file="/WEB-INF/view/admin/include/global.js.jsp" %>
+<title>Insert title here</title>
+<script type="text/javascript">
+	function onclick_del(menuId){
+		$.ajax({
+			url:'delete.action',
+			type:'post',
+			data:{
+				"menuId":menuId
+			},
+			success:function(data){
+				if(data=="删除成功"){
+					onclick_query();
+				}else{
+					alert("删除失败")
+				}
+			}
+		});
+	}
+	
+	function onclick_query(){
+		$.ajax({
+			url:'listAjax.action',
+			type:'post',
+			dataType:'json',
+			data:{
+				"name":$('#name').val()
+			},
+			success:function(data){
+				$('#tableMenu tbody').html('');
+				$.each(data.list ,function(index,item){
+					$('#tableMenu').append("<tr><td>"+item.menuId+"</td><td>"+item.moduleId+"</td><td>"
+							+item.menuName+"</td><td>"+item.menuUrl+"</td><td><a href='edit.do?customerId="+item.menuId
+									+"'>修改</a></td><td><a href='javascript:void(0)' onclick=onclick_del('"+item.menuId+"')>删除</a></td></tr>");
+				});
+			} 
+
+			
+		});
+	} 
+</script>
+</head>
+<body>
+<form id="formQuery">
+Menu Name:<input type="text" name="name" id="name" />
+<input type="button" value="查询" onclick="onclick_query();"/>
+</form>
+<a href="edit.action">新增</a><br/>
+	<table border="1" id="tableMenu">
+		<thead>
+			<tr>
+				<td>Menu Id</td>
+				<td>Module Id</td>
+				<td>Menu Name</td>
+				<td>Menu Url</td>
+			</tr>
+		</thead>
+		<tbody >
+			
+		</tbody>
+	</table>
+<script>
+onclick_query();
+</script>
+</body>
+</html>
